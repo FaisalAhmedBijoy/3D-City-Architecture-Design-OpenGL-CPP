@@ -240,7 +240,7 @@ void buiding()
 
     // building 7
     glEnable(GL_TEXTURE_2D);
-    glBindTexture(GL_TEXTURE_2D,7);
+    glBindTexture(GL_TEXTURE_2D,2);
 
     glPushMatrix();
     glTranslatef(0,30,-60);
@@ -252,7 +252,7 @@ void buiding()
 
     // building 8
     glEnable(GL_TEXTURE_2D);
-    glBindTexture(GL_TEXTURE_2D,8);
+    glBindTexture(GL_TEXTURE_2D,1);
 
     glPushMatrix();
     glTranslatef(50,30,-60);
@@ -264,7 +264,7 @@ void buiding()
 
     // building 9
     glEnable(GL_TEXTURE_2D);
-    glBindTexture(GL_TEXTURE_2D,9);
+    glBindTexture(GL_TEXTURE_2D,4);
 
     glPushMatrix();
     glTranslatef(100,30,-60);
@@ -273,9 +273,6 @@ void buiding()
     cube();
     glPopMatrix();
     glDisable(GL_TEXTURE_2D);
-
-
-
 
 
     //roof
@@ -292,7 +289,7 @@ void road()
 {
     //main road
     glEnable(GL_TEXTURE_2D);
-    glBindTexture(GL_TEXTURE_2D,11);
+    glBindTexture(GL_TEXTURE_2D,10);
 
     glPushMatrix();
     glTranslatef(0,0.5,20);
@@ -305,7 +302,7 @@ void road()
 
     //side road
     glEnable(GL_TEXTURE_2D);
-    glBindTexture(GL_TEXTURE_2D,11);
+    glBindTexture(GL_TEXTURE_2D,10);
 
     glPushMatrix();
     glTranslatef(-50,0.5,0);
@@ -322,7 +319,7 @@ void trees()
     // tree 1
 
     glEnable(GL_TEXTURE_2D);
-    glBindTexture(GL_TEXTURE_2D,13);
+    glBindTexture(GL_TEXTURE_2D,12);
 
     glPushMatrix();
     glTranslatef(-20,30,0);
@@ -336,7 +333,7 @@ void trees()
     // tree 2
 
     glEnable(GL_TEXTURE_2D);
-    glBindTexture(GL_TEXTURE_2D,13);
+    glBindTexture(GL_TEXTURE_2D,12);
 
     glPushMatrix();
     glTranslatef(-70,30,0);
@@ -353,19 +350,134 @@ void trees()
 void wood_leaf()
 {
 
+    // wood
     glEnable(GL_TEXTURE_2D);
-    glBindTexture(GL_TEXTURE_2D,15);
+    glBindTexture(GL_TEXTURE_2D,13);
 
     glPushMatrix();
-    glTranslatef(0,30,0);
-    glScalef(20,60,20);
+    glTranslatef(30,30,0);
+    glScalef(2,30,2);
+    glTranslatef(-0.5,-0.5,-0.5);
+    cube();
+    glPopMatrix();
+    glDisable(GL_TEXTURE_2D);
+
+    //leaf
+
+    glEnable(GL_TEXTURE_2D);
+    glBindTexture(GL_TEXTURE_2D,14);
+
+    glPushMatrix();
+    glTranslatef(30,50,0);
+    glScalef(8,12,8);
+    glTranslatef(-0.5,-0.5,-0.5);
+    cube();
+    glPopMatrix();
+    glDisable(GL_TEXTURE_2D);
+
+
+}
+
+void traffic_light()
+{
+    // base
+    glEnable(GL_TEXTURE_2D);
+    glBindTexture(GL_TEXTURE_2D,13);
+
+    glPushMatrix();
+    glTranslatef(-20,30,0);
+    glScalef(2,30,2);
+    glTranslatef(-0.5,-0.5,-0.5);
+    cube();
+    glPopMatrix();
+    glDisable(GL_TEXTURE_2D);
+
+    // Signal light
+
+    glEnable(GL_TEXTURE_2D);
+    glBindTexture(GL_TEXTURE_2D,8);
+
+    glPushMatrix();
+    glTranslatef(-20,50,0);
+    glScalef(5,10,5);
+    glTranslatef(-0.5,-0.5,-0.5);
+    cube();
+    glPopMatrix();
+    glDisable(GL_TEXTURE_2D);
+
+    // roof off
+    //roof
+    glPushMatrix();
+    glTranslatef(-20,55,0);
+    glScalef(5,2,5);
+    glTranslatef(-0.5,-0.5,-0.5);
+    cube();
+    glPopMatrix();
+
+}
+
+void signboard()
+{
+    // base
+    glEnable(GL_TEXTURE_2D);
+    glBindTexture(GL_TEXTURE_2D,13);
+
+    glPushMatrix();
+    glTranslatef(-50,30,0);
+    glScalef(2,30,2);
+    glTranslatef(-0.5,-0.5,-0.5);
+    cube();
+    glPopMatrix();
+    glDisable(GL_TEXTURE_2D);
+
+    // Signal light
+
+    glEnable(GL_TEXTURE_2D);
+    glBindTexture(GL_TEXTURE_2D,9);
+
+    glPushMatrix();
+    glTranslatef(-50,50,0);
+    glScalef(20,20,20);
+    glTranslatef(-0.5,-0.5,-0.5);
+    cube();
+    glPopMatrix();
+    glDisable(GL_TEXTURE_2D);
+
+    // roof off
+    //roof
+    glPushMatrix();
+    glTranslatef(-50,55,0);
+    glScalef(5,2,5);
+    glTranslatef(-0.5,-0.5,-0.5);
+    cube();
+    glPopMatrix();
+
+}
+void shop()
+{
+    // shop 1
+    glEnable(GL_TEXTURE_2D);
+    glBindTexture(GL_TEXTURE_2D,11);
+
+    glPushMatrix();
+    glTranslatef(-100,30,0);
+    glScalef(20,40,20);
     glTranslatef(-0.5,-0.5,-0.5);
     cube();
     glPopMatrix();
 
     glDisable(GL_TEXTURE_2D);
 
+    // roof off
+    //roof
+    glPushMatrix();
+    glTranslatef(-100,50,0);
+    glScalef(20,2,20);
+    glTranslatef(-0.5,-0.5,-0.5);
+    cube();
+    glPopMatrix();
 }
+
 void _light()
 {
     //GLfloat no_light[] = { 0.0, 0.0, 0.0, 1.0 };
@@ -470,12 +582,14 @@ static void key(unsigned char key, int x, int y)
         //look[0]--;
 
         break;
-    case '+':
-        eye[2]--;
+    case '+': // zoom in
+        //eye[2]--;
+        eyeZ--;
         break;
 
     case '-':
-        eye[2]++;
+        //eye[2]++; // zoom out
+        eyeZ++;
         break;
     }
 
@@ -509,10 +623,13 @@ static void display(void)
     glRotatef(rot, 0,1,0);
 
     axes();
-    buiding();
+    //buiding();
     road();
-    trees();
-    // wood_leaf();
+    //trees();
+    wood_leaf();
+    traffic_light();
+    signboard();
+    shop();
 
     glFlush();
     glutSwapBuffers();
@@ -533,21 +650,27 @@ int main(int argc, char *argv[])
     LoadTexture("C:\\Users\\Shimul\\Documents\\CSE 4208 Computer Graphics\\City 3D\\images\\building4.bmp",4);
     LoadTexture("C:\\Users\\Shimul\\Documents\\CSE 4208 Computer Graphics\\City 3D\\images\\building5.bmp",5);
     LoadTexture("C:\\Users\\Shimul\\Documents\\CSE 4208 Computer Graphics\\City 3D\\images\\building6.bmp",6);
-    LoadTexture("C:\\Users\\Shimul\\Documents\\CSE 4208 Computer Graphics\\City 3D\\images\\building7.bmp",7);
-    LoadTexture("C:\\Users\\Shimul\\Documents\\CSE 4208 Computer Graphics\\City 3D\\images\\building8.bmp",8);
-    LoadTexture("C:\\Users\\Shimul\\Documents\\CSE 4208 Computer Graphics\\City 3D\\images\\building9.bmp",9);
-    LoadTexture("C:\\Users\\Shimul\\Documents\\CSE 4208 Computer Graphics\\City 3D\\images\\building10.bmp",10);
-    //LoadTexture("C:\\Users\\Shimul\\Documents\\CSE 4208 Computer Graphics\\City 3D\\images\\building3.bmp",3);
+
+    // Traffic Light
+    LoadTexture("C:\\Users\\Shimul\\Documents\\CSE 4208 Computer Graphics\\City 3D\\images\\traffic1.bmp",7);
+    LoadTexture("C:\\Users\\Shimul\\Documents\\CSE 4208 Computer Graphics\\City 3D\\images\\traffic2.bmp",8);
+
+    // Signboard
+    LoadTexture("C:\\Users\\Shimul\\Documents\\CSE 4208 Computer Graphics\\City 3D\\images\\signboard2.bmp",9);
 
     // roads
-    LoadTexture("C:\\Users\\Shimul\\Documents\\CSE 4208 Computer Graphics\\City 3D\\images\\road3.bmp",11);
-    LoadTexture("C:\\Users\\Shimul\\Documents\\CSE 4208 Computer Graphics\\City 3D\\images\\road2.bmp",12);
+    LoadTexture("C:\\Users\\Shimul\\Documents\\CSE 4208 Computer Graphics\\City 3D\\images\\road3.bmp",10);
+
+    // shop
+    LoadTexture("C:\\Users\\Shimul\\Documents\\CSE 4208 Computer Graphics\\City 3D\\images\\shop1.bmp",11);
 
     // Trees
-    LoadTexture("C:\\Users\\Shimul\\Documents\\CSE 4208 Computer Graphics\\City 3D\\images\\tree2.bmp",13);
+    LoadTexture("C:\\Users\\Shimul\\Documents\\CSE 4208 Computer Graphics\\City 3D\\images\\tree2.bmp",12);
 
-    // LoadTexture("C:\\Users\\Shimul\\Documents\\CSE 4208 Computer Graphics\\City 3D\\images\\wood1.bmp",14);
+    LoadTexture("C:\\Users\\Shimul\\Documents\\CSE 4208 Computer Graphics\\City 3D\\images\\wood1.bmp",13);
     //LoadTexture("C:\\Users\\Shimul\\Documents\\CSE 4208 Computer Graphics\\City 3D\\images\\wood2.bmp",15);
+    LoadTexture("C:\\Users\\Shimul\\Documents\\CSE 4208 Computer Graphics\\City 3D\\images\\leaf1.bmp",14);
+    LoadTexture("C:\\Users\\Shimul\\Documents\\CSE 4208 Computer Graphics\\City 3D\\images\\leaf2.bmp",15);
 
 
 
