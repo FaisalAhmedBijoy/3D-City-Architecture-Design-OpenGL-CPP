@@ -438,50 +438,45 @@ static void key(unsigned char key, int x, int y)
         //eye[1]--;
         //look[1]--;
         break;
-    case 'h':
-        look[0]++;
+    case 'a': // look right
+        lookX++;
+        //look[0]++;
         break;
-    case 'f':
-        look[0]--;
+    case 'b':
+        lookX--;
+        //look[0]--; // look left
         break;
 
-    case 'e':
+    case 'p': // rotate left
         rot--;
         break;
-    case 'r':
+    case 'q': // rotate right
         rot++;
         break;
-    case 'l':
+    case 'l': // left
 
-        eye[0]++;
-        look[0]++;
+        eyeX++;
+        lookX++;
+        //eye[0]++;
+        //look[0]++;
 
         break;
-    case 'j':
+    case 'r': // right
 
-        eye[0]--;
-        look[0]--;
+        eyeX--;
+        lookX--;
+
+        //eye[0]--;
+        //look[0]--;
 
         break;
     case '+':
         eye[2]--;
         break;
-    case 'i':
 
-        eye[2]--;
-
-        break;
     case '-':
         eye[2]++;
         break;
-    case 'k':
-
-        eye[2]++;
-
-
-        break;
-
-
     }
 
     glutPostRedisplay();
@@ -508,7 +503,7 @@ static void display(void)
     glLoadIdentity() ;
 
     //gluLookAt(eyeX,eyeY,eyeZ, lookX,lookY,lookZ, 0,1,0);
-    gluLookAt(eye[0],eye[1],eye[2], look[0],look[1],look[2], 0,1,0);
+    gluLookAt(eyeX,eyeY,eyeZ, lookX,lookY,lookZ, 0,1,0);
     //glViewport(0, 0, window_width, window_height);
 
     glRotatef(rot, 0,1,0);
