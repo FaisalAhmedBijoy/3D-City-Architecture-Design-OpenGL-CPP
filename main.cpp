@@ -1,14 +1,13 @@
 #include<GL/gl.h>
 #include <GL/glu.h>
 #include <GL/glut.h>
-#include <stdlib.h>
-#include <stdio.h>
 #include <windows.h>
 #include<math.h>
 #include<bits/stdc++.h>
 #include "BmpLoader.h"
 #include <fstream>
 #include <iostream>
+#define GL_CLAMP_TO_EDGE 0x812F
 using namespace std;
 
 
@@ -22,15 +21,15 @@ GLfloat lookX=0;
 GLfloat lookY=40;
 GLfloat lookZ=-500;
 
-bool light_switch_0=true;
-bool light_switch_1=true;
-bool spot_light_switch=true;
+bool light_switch_0=false;
+bool light_switch_1=false;
+bool spot_light_switch=false;
 
 
 float rot = 0;
 
 unsigned int ID;
-#define GL_CLAMP_TO_EDGE 0x812F
+
 
 static GLfloat v_cube[8][3] =
 {
@@ -339,6 +338,23 @@ void buiding()
 
 
 }
+void playground()
+{
+    glEnable(GL_TEXTURE_2D);
+    glBindTexture(GL_TEXTURE_2D,7);
+    glPushMatrix();
+    glTranslatef(200,0,-20);
+    glScalef(50,1,50);
+    glTranslatef(-0.5,-0.5,-0.5);
+    cube();
+    glPopMatrix();
+
+    glPopMatrix();
+
+    glDisable(GL_TEXTURE_2D);
+
+}
+
 void road()
 {
     //main road
@@ -347,7 +363,7 @@ void road()
 
     glPushMatrix();
     glTranslatef(0,0.5,20);
-    glScalef(300,1,10);
+    glScalef(500,1,10);
     glTranslatef(-0.5,-0.5,-0.5);
     cube();
     glPopMatrix();
@@ -605,7 +621,7 @@ shop_spot_lighting()
     glPopMatrix();
 
 
-     // Bulb line
+    // Bulb line
     glPushMatrix();
     glTranslatef(-105,28,0);
     glScalef(1,7,1);
@@ -727,7 +743,7 @@ void spot_light_function(float x, float y, float z)
 
     glLightfv( GL_LIGHT2, GL_POSITION, light_position);
     GLfloat direction[]= {0,-1,0,1};
-    GLfloat cut_off=60;
+    GLfloat cut_off=90;
     glLightfv(GL_LIGHT2,GL_SPOT_DIRECTION,direction);
     glLightf(GL_LIGHT2,GL_SPOT_CUTOFF,cut_off);
 
@@ -742,7 +758,7 @@ void axes()
     glTranslatef(length/2,0,0);
     glScalef(length,width,width);
     glTranslatef(-0.5,-0.5,-0.5);
-    cube(1,0,0); //RED Line
+    cube(1,0,0);
     glPopMatrix();
 
     // Y-axis
@@ -750,7 +766,7 @@ void axes()
     glTranslatef(0,length/2,0);
     glScalef(width,length,width);
     glTranslatef(-0.5,-0.5,-0.5);
-    cube(0,1,0); //GREEN Line
+    cube(0,1,0);
     glPopMatrix();
 
     // Z-axis
@@ -758,7 +774,7 @@ void axes()
     glTranslatef(0,0,length/2);
     glScalef(width,width,length);
     glTranslatef(-0.5,-0.5,-0.5);
-    cube(0,0,1); //BLUE Line
+    cube(0,0,1);
     glPopMatrix();
 }
 static void key(unsigned char key, int x, int y)
@@ -794,15 +810,15 @@ static void key(unsigned char key, int x, int y)
         break;
     case 'l': // left
 
-        eyeX++;
-        lookX++;
+        eyeX--;
+        lookX--;
 
 
         break;
     case 'r': // right
 
-        eyeX--;
-        lookX--;
+        eyeX++;
+        lookX++;
 
         break;
     case '+': // zoom in
@@ -817,9 +833,11 @@ static void key(unsigned char key, int x, int y)
     case '1':
         light_switch_0 =! light_switch_0;
         break;
+
     case '2':
         light_switch_1 =! light_switch_1;
         break;
+
     case '3':
         spot_light_switch =! spot_light_switch;
         break;
@@ -857,9 +875,12 @@ static void display(void)
 
 
     display_settings();
+
+    main_light();
     //axes();
     buiding();
     road();
+    playground();
 
     // Spot light
     glPushMatrix();
@@ -987,8 +1008,9 @@ int main(int argc, char *argv[])
     LoadTexture("C:\\Users\\Shimul\\Documents\\CSE 4208 Computer Graphics\\City 3D\\images\\building5.bmp",5);
     LoadTexture("C:\\Users\\Shimul\\Documents\\CSE 4208 Computer Graphics\\City 3D\\images\\building6.bmp",6);
 
-    // Traffic Light
-    LoadTexture("C:\\Users\\Shimul\\Documents\\CSE 4208 Computer Graphics\\City 3D\\images\\traffic1.bmp",7);
+    // Playground grass
+    LoadTexture("C:\\Users\\Shimul\\Documents\\CSE 4208 Computer Graphics\\City 3D\\images\\grass.bmp",7);
+    //  Traffic Light
     LoadTexture("C:\\Users\\Shimul\\Documents\\CSE 4208 Computer Graphics\\City 3D\\images\\traffic2.bmp",8);
 
     // Signboard
@@ -1040,7 +1062,7 @@ int main(int argc, char *argv[])
     glutDisplayFunc(display);
     glutKeyboardFunc(key);
 
-    main_light();
+
     glShadeModel( GL_SMOOTH );
     glEnable(GL_DEPTH_TEST);
     glEnable(GL_NORMALIZE);
