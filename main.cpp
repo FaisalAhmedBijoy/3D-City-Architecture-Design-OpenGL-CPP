@@ -159,6 +159,16 @@ void buiding()
 
     glDisable(GL_TEXTURE_2D);
 
+
+    //roof 1
+    glPushMatrix();
+    glTranslatef(0,60,0);
+    glScalef(20,1,20);
+    glTranslatef(-0.5,-0.5,-0.5);
+    cube();
+    glPopMatrix();
+
+
     // building 2
     glEnable(GL_TEXTURE_2D);
     glBindTexture(GL_TEXTURE_2D,2);
@@ -171,6 +181,14 @@ void buiding()
     glPopMatrix();
 
     glDisable(GL_TEXTURE_2D);
+
+    //roof 2
+    glPushMatrix();
+    glTranslatef(50,60,0);
+    glScalef(20,1,20);
+    glTranslatef(-0.5,-0.5,-0.5);
+    cube();
+    glPopMatrix();
 
     // building 3
     glEnable(GL_TEXTURE_2D);
@@ -185,6 +203,15 @@ void buiding()
 
     glDisable(GL_TEXTURE_2D);
 
+    //roof 3
+    glPushMatrix();
+    glTranslatef(100,60,0);
+    glScalef(20,1,20);
+    glTranslatef(-0.5,-0.5,-0.5);
+    cube();
+    glPopMatrix();
+
+
     // building 4
     glEnable(GL_TEXTURE_2D);
     glBindTexture(GL_TEXTURE_2D,4);
@@ -196,6 +223,15 @@ void buiding()
     cube();
     glPopMatrix();
     glDisable(GL_TEXTURE_2D);
+
+    //roof 4
+    glPushMatrix();
+    glTranslatef(0,60,-30);
+    glScalef(20,1,20);
+    glTranslatef(-0.5,-0.5,-0.5);
+    cube();
+    glPopMatrix();
+
 
     // building 5
     glEnable(GL_TEXTURE_2D);
@@ -209,6 +245,15 @@ void buiding()
     glPopMatrix();
     glDisable(GL_TEXTURE_2D);
 
+
+    //roof 5
+    glPushMatrix();
+    glTranslatef(50,60,-30);
+    glScalef(20,1,20);
+    glTranslatef(-0.5,-0.5,-0.5);
+    cube();
+    glPopMatrix();
+
     // building 6
     glEnable(GL_TEXTURE_2D);
     glBindTexture(GL_TEXTURE_2D,6);
@@ -220,6 +265,14 @@ void buiding()
     cube();
     glPopMatrix();
     glDisable(GL_TEXTURE_2D);
+
+    //roof 6
+    glPushMatrix();
+    glTranslatef(100,60,-30);
+    glScalef(20,1,20);
+    glTranslatef(-0.5,-0.5,-0.5);
+    cube();
+    glPopMatrix();
 
     // building 7
     glEnable(GL_TEXTURE_2D);
@@ -233,6 +286,14 @@ void buiding()
     glPopMatrix();
     glDisable(GL_TEXTURE_2D);
 
+    //roof 7
+    glPushMatrix();
+    glTranslatef(0,60,-60);
+    glScalef(20,1,20);
+    glTranslatef(-0.5,-0.5,-0.5);
+    cube();
+    glPopMatrix();
+
     // building 8
     glEnable(GL_TEXTURE_2D);
     glBindTexture(GL_TEXTURE_2D,1);
@@ -244,6 +305,14 @@ void buiding()
     cube();
     glPopMatrix();
     glDisable(GL_TEXTURE_2D);
+
+    //roof 8
+    glPushMatrix();
+    glTranslatef(50,60,-60);
+    glScalef(20,1,20);
+    glTranslatef(-0.5,-0.5,-0.5);
+    cube();
+    glPopMatrix();
 
     // building 9
     glEnable(GL_TEXTURE_2D);
@@ -257,14 +326,16 @@ void buiding()
     glPopMatrix();
     glDisable(GL_TEXTURE_2D);
 
-
-    //roof
+    //roof 9
     glPushMatrix();
-    glTranslatef(50,60,0);
+    glTranslatef(100,60,-60);
     glScalef(20,1,20);
     glTranslatef(-0.5,-0.5,-0.5);
     cube();
     glPopMatrix();
+
+
+
 
 
 }
@@ -455,7 +526,7 @@ void shop()
     glBindTexture(GL_TEXTURE_2D,11);
 
     glPushMatrix();
-    glTranslatef(-100,30,0);
+    glTranslatef(-120,30,0);
     glScalef(20,40,20);
     glTranslatef(-0.5,-0.5,-0.5);
     cube();
@@ -466,7 +537,7 @@ void shop()
     // roof off
     //roof
     glPushMatrix();
-    glTranslatef(-100,50,0);
+    glTranslatef(-120,50,0);
     glScalef(20,2,20);
     glTranslatef(-0.5,-0.5,-0.5);
     cube();
@@ -512,8 +583,46 @@ void road_light()
     glPopMatrix();
 
 }
+shop_spot_lighting()
+{
+    // base
+    glPushMatrix();
 
-void _light()
+    glPushMatrix();
+    glTranslatef(-100,20,0);
+    glScalef(1,30,1);
+    glTranslatef(-0.5,-0.5,-0.5);
+    cube(1.0,1.0,0.1);
+    glPopMatrix();
+
+    // light stand
+    glPushMatrix();
+    glTranslatef(-105,32,0);
+    glScalef(10,1,1);
+
+    glTranslatef(-0.5,-0.5,-0.5);
+    cube(0.8,0.6,0.2);
+    glPopMatrix();
+
+
+     // Bulb line
+    glPushMatrix();
+    glTranslatef(-105,28,0);
+    glScalef(1,7,1);
+    glTranslatef(-0.5,-0.5,-0.5);
+    cube(0.1,1.0,0.1);
+    glPopMatrix();
+    //Solud sphere
+    glPushMatrix();
+    glTranslatef(-105,25,0);
+    glutSolidSphere(2,16,16);
+    glPopMatrix();
+
+    glPopMatrix();
+
+}
+
+void main_light()
 {
     //GLfloat no_light[] = { 0.0, 0.0, 0.0, 1.0 };
     GLfloat light_ambient[]  = {1.0, 1.0, 1.0, 1.0};
@@ -526,7 +635,6 @@ void _light()
     glLightfv( GL_LIGHT7, GL_AMBIENT, light_ambient);
     glLightfv( GL_LIGHT7, GL_DIFFUSE, light_diffuse);
     glLightfv( GL_LIGHT7, GL_SPECULAR, light_specular);
-
     glLightfv( GL_LIGHT7, GL_POSITION, light_position);
 }
 
@@ -749,9 +857,16 @@ static void display(void)
 
 
     display_settings();
-    axes();
+    //axes();
     buiding();
     road();
+
+    // Spot light
+    glPushMatrix();
+    spot_light_function(-105,20,0);
+    glTranslatef(5,0,0);
+    shop_spot_lighting();
+    glPopMatrix();
     //trees();
 
     // Tree 1
@@ -798,7 +913,7 @@ static void display(void)
     signboard();
     glPopMatrix();
 
-     // Sign board 2
+    // Sign board 2
     glPushMatrix();
     glTranslatef(200,-10,-20);
     signboard();
@@ -810,6 +925,8 @@ static void display(void)
     shop();
 
 
+
+    /*
     //light 1
     glPushMatrix();
     light_function_0(40,35,0);
@@ -822,9 +939,10 @@ static void display(void)
     glPushMatrix();
     light_function_1(-100,35,0);
     glTranslatef(-100,0,0);
-    //road_light();
+    road_light();
     //cube();
     glPopMatrix();
+    */
 
     for (int i=10; i<=100; i=i+20)
     {
@@ -922,7 +1040,7 @@ int main(int argc, char *argv[])
     glutDisplayFunc(display);
     glutKeyboardFunc(key);
 
-    _light();
+    main_light();
     glShadeModel( GL_SMOOTH );
     glEnable(GL_DEPTH_TEST);
     glEnable(GL_NORMALIZE);
