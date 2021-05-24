@@ -743,7 +743,7 @@ void spot_light_function(float x, float y, float z)
 
     glLightfv( GL_LIGHT2, GL_POSITION, light_position);
     GLfloat direction[]= {0,-1,0,1};
-    GLfloat cut_off=90;
+    GLfloat cut_off=60;
     glLightfv(GL_LIGHT2,GL_SPOT_DIRECTION,direction);
     glLightf(GL_LIGHT2,GL_SPOT_CUTOFF,cut_off);
 
@@ -777,6 +777,49 @@ void axes()
     cube(0,0,1);
     glPopMatrix();
 }
+void cars()
+{
+
+    //base
+    glEnable(GL_TEXTURE_2D);
+    glBindTexture(GL_TEXTURE_2D,16);
+
+    glPushMatrix();
+    glTranslatef(0,15,20);
+    glScalef(20,15,5);
+    glTranslatef(-0.5,-0.5,-0.5);
+    cube(0.8,0.8,0.0);
+    glPopMatrix();
+    glDisable(GL_TEXTURE_2D);
+
+    // wheel 1
+    glPushMatrix();
+    glTranslatef(-5,5,18);
+    glutSolidSphere(2,16,16);
+    glPopMatrix();
+
+    // wheel 2
+    glPushMatrix();
+    glTranslatef(5,5,18);
+    glutSolidSphere(2,16,16);
+    glPopMatrix();
+
+    // wheel 3
+    glPushMatrix();
+    glTranslatef(5,5,22);
+    glutSolidSphere(2,16,16);
+    glPopMatrix();
+
+    // wheel 4
+    glPushMatrix();
+    glTranslatef(-5,5,22);
+    glutSolidSphere(2,10,10);
+    glPopMatrix();
+
+
+
+}
+
 static void key(unsigned char key, int x, int y)
 {
     switch (key)
@@ -878,7 +921,20 @@ static void display(void)
 
     main_light();
     //axes();
-    buiding();
+    //buiding();
+    glPushMatrix();
+
+    for (int i=-10; i<=100; i+=30)
+    {
+        glPushMatrix();
+        glTranslatef(i,0,0);
+        cars();
+        glPopMatrix();
+
+    }
+
+    glPopMatrix();
+
     road();
     playground();
 
@@ -955,7 +1011,6 @@ static void display(void)
     road_light();
     //cube();
     glPopMatrix();
-
     // light 2
     glPushMatrix();
     light_function_1(-100,35,0);
@@ -968,7 +1023,7 @@ static void display(void)
     for (int i=10; i<=100; i=i+20)
     {
         glPushMatrix();
-        light_function_1(-100,35,0);
+        light_function_0(140,35,0);
         glTranslatef(40,-20,-i);
         road_light();
         //cube();
@@ -1031,6 +1086,8 @@ int main(int argc, char *argv[])
 
     // road light bulb texture
     LoadTexture("C:\\Users\\Shimul\\Documents\\CSE 4208 Computer Graphics\\City 3D\\images\\bulb4.bmp",15);
+    // Cars
+    LoadTexture("C:\\Users\\Shimul\\Documents\\CSE 4208 Computer Graphics\\City 3D\\images\\car1.bmp",16);
 
 
     cout<<"--------------------------"<<endl;
