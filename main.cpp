@@ -25,6 +25,7 @@ bool light_switch_0=false;
 bool light_switch_1=false;
 bool spot_light_switch=false;
 
+float carx=-60, carz=0;
 
 float rot = 0;
 
@@ -363,7 +364,7 @@ void road()
 
     glPushMatrix();
     glTranslatef(0,0.5,20);
-    glScalef(500,1,10);
+    glScalef(500,1,15);
     glTranslatef(-0.5,-0.5,-0.5);
     cube();
     glPopMatrix();
@@ -377,7 +378,7 @@ void road()
     glPushMatrix();
     glTranslatef(-50,0.5,0);
     glRotatef(90,0,1,0);
-    glScalef(200,1,10);
+    glScalef(200,1,15);
     glTranslatef(-0.5,-0.5,-0.5);
     cube();
     glPopMatrix();
@@ -391,7 +392,7 @@ void road()
     glPushMatrix();
     glTranslatef(130,0.5,0);
     glRotatef(90,0,1,0);
-    glScalef(200,1,10);
+    glScalef(200,1,15);
     glTranslatef(-0.5,-0.5,-0.5);
     cube();
     glPopMatrix();
@@ -777,6 +778,40 @@ void axes()
     cube(0,0,1);
     glPopMatrix();
 }
+
+float inc =1;
+bool move_x = 1, move_z =0;
+void car_animation(int t)
+{
+    if(t==1 && move_x)
+    {
+        if(carx<=130)
+            carx +=0.05;
+        if(carx>=130)
+        {
+            carx = -60;
+            move_x = 0;
+            move_z =1;
+
+        }
+    }
+
+    else if(t==2 && move_z)
+    {
+        if(carz>=-50)
+            carz -=0.05;
+        if(carz<=-50)
+        {
+            carz = 0;
+            move_z = 0;
+            move_x =1;
+
+        }
+    }
+
+    glutPostRedisplay();
+
+}
 void cars()
 {
 
@@ -820,6 +855,43 @@ void cars()
 
 }
 
+void car_movx()
+{
+    //cars();
+    if(move_x)
+        for(int i=1; i<=100; i+=35)
+        {
+            glPushMatrix();
+            glTranslatef(carx+i,0,carz);
+            //glRotatef(90,0,car_yrot,0);
+            cars();
+            car_animation(1);
+            glPopMatrix();
+        }
+
+//
+
+}
+void car_movz()
+{
+    //cars();
+    if(move_z)
+        //left
+        for(int i=1; i<=100; i+=35)
+        {
+            glPushMatrix();
+            glTranslatef(carx-10,0,carz+i);
+            glRotatef(90,0,1,0);
+            cars();
+            car_animation(2);
+            glPopMatrix();
+        }
+        //right
+
+
+//
+
+}
 static void key(unsigned char key, int x, int y)
 {
     switch (key)
@@ -921,18 +993,13 @@ static void display(void)
 
     main_light();
     //axes();
-    //buiding();
+    buiding();
     glPushMatrix();
+    car_movx();
+    glPopMatrix();
 
-    for (int i=-10; i<=100; i+=30)
-    {
-        glPushMatrix();
-        glTranslatef(i,0,0);
-        cars();
-        glPopMatrix();
-
-    }
-
+    glPushMatrix();
+    car_movz();
     glPopMatrix();
 
     road();
