@@ -221,12 +221,10 @@
 	<_mingw.h>
 	<stddef.h>
 
-1621665755 source:c:\users\shimul\documents\cse 4208 computer graphics\city 3d\main.cpp
+1621955580 source:c:\users\shimul\documents\cse 4208 computer graphics\city 3d\main.cpp
 	<GL/gl.h>
 	<GL/glu.h>
 	<GL/glut.h>
-	<stdlib.h>
-	<stdio.h>
 	<windows.h>
 	<math.h>
 	<bits/stdc++.h>
