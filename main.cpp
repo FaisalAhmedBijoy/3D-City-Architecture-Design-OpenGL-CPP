@@ -467,7 +467,7 @@ void traffic_signal()
 {
     // base
     glEnable(GL_TEXTURE_2D);
-    glBindTexture(GL_TEXTURE_2D,13);
+    glBindTexture(GL_TEXTURE_2D,19);
 
     glPushMatrix();
     glTranslatef(-20,30,0);
@@ -504,7 +504,7 @@ void signboard()
 {
     // base
     glEnable(GL_TEXTURE_2D);
-    glBindTexture(GL_TEXTURE_2D,13);
+    glBindTexture(GL_TEXTURE_2D,19);
 
     glPushMatrix();
     glTranslatef(-50,30,0);
@@ -916,7 +916,21 @@ void car_movz()
 //
 
 }
+void base_floor()
+{
+    glEnable(GL_TEXTURE_2D);
+    glBindTexture(GL_TEXTURE_2D,20);
 
+    glPushMatrix();
+    glTranslatef(0,0,0);
+    glScalef(500,1,500);
+    glTranslatef(-0.5,-0.5,-0.5);
+    cube();
+    glPopMatrix();
+
+    glDisable(GL_TEXTURE_2D);
+
+}
 void park()
 {
  // wood
@@ -1042,6 +1056,7 @@ static void display(void)
 
 
     display_settings();
+    base_floor();
 
 
 
@@ -1225,7 +1240,7 @@ int main(int argc, char *argv[])
     LoadTexture("C:\\Users\\Shimul\\Documents\\CSE 4208 Computer Graphics\\City 3D\\images\\signboard7.bmp",9);
 
     // roads
-    LoadTexture("C:\\Users\\Shimul\\Documents\\CSE 4208 Computer Graphics\\City 3D\\images\\road3.bmp",10);
+    LoadTexture("C:\\Users\\Shimul\\Documents\\CSE 4208 Computer Graphics\\City 3D\\images\\road.bmp",10);
 
     // shop
     LoadTexture("C:\\Users\\Shimul\\Documents\\CSE 4208 Computer Graphics\\City 3D\\images\\shop1.bmp",11);
@@ -1248,6 +1263,10 @@ int main(int argc, char *argv[])
 
     // shop 3
     LoadTexture("C:\\Users\\Shimul\\Documents\\CSE 4208 Computer Graphics\\City 3D\\images\\shop6.bmp",18);
+    // Chocolate color
+    LoadTexture("C:\\Users\\Shimul\\Documents\\CSE 4208 Computer Graphics\\City 3D\\images\\chocolate.bmp",19);
+    // base floor
+    LoadTexture("C:\\Users\\Shimul\\Documents\\CSE 4208 Computer Graphics\\City 3D\\images\\car1.bmp",20);
 
 
 
