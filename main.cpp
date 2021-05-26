@@ -51,7 +51,7 @@ bool light_switch_1=false;
 bool spot_light_switch=false;
 bool main_light_switch=false;
 
-float carx=-60, carz=0;
+float carx=-300, carz=0;
 
 float rot = 0;
 
@@ -390,7 +390,7 @@ void road()
 
     glPushMatrix();
     glTranslatef(0,0.5,20);
-    glScalef(800,1,15);
+    glScalef(900,1,15);
     glTranslatef(-0.5,-0.5,-0.5);
     cube();
     glPopMatrix();
@@ -907,38 +907,8 @@ void axes()
     glPopMatrix();
 }
 
-bool move_x = 1, move_z =0;
-void car_animation(int t)
-{
-    if(t==1 && move_x)
-    {
-        if(carx<=300)
-            carx +=0.03;
-        if(carx>=300)
-        {
-            carx = -60;
-            move_x = 0;
-            move_z =1;
 
-        }
-    }
 
-    else if(t==2 && move_z)
-    {
-        if(carz>=-100)
-            carz -=0.03;
-        if(carz<=-100)
-        {
-            carz = 0;
-            move_z = 0;
-            move_x =1;
-
-        }
-    }
-
-    glutPostRedisplay();
-
-}
 void cars()
 {
 
@@ -981,44 +951,35 @@ void cars()
 
 
 }
-
-void car_movx()
+void car_animation()
 {
-    //cars();
-    if(move_x)
-        for(int i=1; i<=100; i+=35)
+        if(carx<=300)
+        {
+
+            carx +=0.05;
+        }
+        if(carx>=300)
+        {
+            carx = -300;
+
+        }
+
+    glutPostRedisplay();
+
+}
+void car_move()
+{
+    for(int i=1; i<=100; i+=30)
         {
             glPushMatrix();
-            glTranslatef(carx+i,0,carz);
-            //glRotatef(90,0,car_yrot,0);
+            glTranslatef(carx+i,0,0);
             cars();
-            car_animation(1);
+            car_animation();
             glPopMatrix();
         }
 
-//
-
 }
-void car_movz()
-{
-    //cars();
-    if(move_z)
-        //left
-        for(int i=1; i<=100; i+=35)
-        {
-            glPushMatrix();
-            glTranslatef(carx-10,0,carz+i);
-            glRotatef(90,0,1,0);
-            cars();
-            car_animation(2);
-            glPopMatrix();
-        }
-    //right
 
-
-//
-
-}
 void base_floor()
 {
     glEnable(GL_TEXTURE_2D);
@@ -1282,16 +1243,10 @@ static void display(void)
     glTranslatef(200,-10,-20);
     signboard();
     glPopMatrix();
-
-    // Car move X and Z direction
+    // Car Move
     glPushMatrix();
-    car_movx();
+    car_move();
     glPopMatrix();
-
-    glPushMatrix();
-    car_movz();
-    glPopMatrix();
-
 
     // Swimming Pool
     swimming_pool();
