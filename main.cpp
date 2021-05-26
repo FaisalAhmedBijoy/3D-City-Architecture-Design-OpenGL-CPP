@@ -1,3 +1,26 @@
+/*
+--------------------------
+3D City Architecture Design
+Faisal Ahmed
+Roll: 1607048
+Department of CSE, KUET
+--------------------------
+Components of 3D City Architecture
+1. Building
+2. Road
+3. Road light
+4. Traffic Signal
+5. Playground
+6. Shopping Malls
+7. Cars
+8. Tress
+9. Parks
+10. Signboard
+11. Shop spot light
+12. Moon
+--------------------
+*/
+
 #include<GL/gl.h>
 #include <GL/glu.h>
 #include <GL/glut.h>
@@ -12,7 +35,7 @@ using namespace std;
 
 
 const int window_width = 1200;
-const int window_height = 750;
+const int window_height = 700;
 GLfloat eyeX=0;
 GLfloat eyeY=40;
 GLfloat eyeZ=50;
@@ -561,8 +584,30 @@ void shop()
     cube();
     glPopMatrix();
 
-
     // shop 2
+    glEnable(GL_TEXTURE_2D);
+    glBindTexture(GL_TEXTURE_2D,18);
+
+    glPushMatrix();
+    glTranslatef(-150,30,0);
+    glScalef(20,40,20);
+    glTranslatef(-0.5,-0.5,-0.5);
+    cube();
+    glPopMatrix();
+
+    glDisable(GL_TEXTURE_2D);
+
+    // roof off
+    //roof
+    glPushMatrix();
+    glTranslatef(-150,50,0);
+    glScalef(20,2,20);
+    glTranslatef(-0.5,-0.5,-0.5);
+    cube();
+    glPopMatrix();
+
+
+    // shop 3
     glEnable(GL_TEXTURE_2D);
     glBindTexture(GL_TEXTURE_2D,18);
 
@@ -579,6 +624,29 @@ void shop()
 
     glPushMatrix();
     glTranslatef(-120,50,-30);
+    glScalef(20,2,20);
+    glTranslatef(-0.5,-0.5,-0.5);
+    cube();
+    glPopMatrix();
+
+
+    // shop 4
+    glEnable(GL_TEXTURE_2D);
+    glBindTexture(GL_TEXTURE_2D,11);
+
+    glPushMatrix();
+    glTranslatef(-150,30,-30);
+    glScalef(20,40,20);
+    glTranslatef(-0.5,-0.5,-0.5);
+    cube();
+    glPopMatrix();
+
+    glDisable(GL_TEXTURE_2D);
+
+    // roof off 2
+
+    glPushMatrix();
+    glTranslatef(-150,50,-30);
     glScalef(20,2,20);
     glTranslatef(-0.5,-0.5,-0.5);
     cube();
@@ -626,21 +694,21 @@ void road_light()
     glPopMatrix();
 
 }
-shop_spot_lighting()
+spot_lighting()
 {
     // base
     glPushMatrix();
 
     glPushMatrix();
     glTranslatef(-100,20,0);
-    glScalef(1,30,1);
+    glScalef(1,45,1);
     glTranslatef(-0.5,-0.5,-0.5);
     cube(1.0,1.0,0.1);
     glPopMatrix();
 
     // light stand
     glPushMatrix();
-    glTranslatef(-105,32,0);
+    glTranslatef(-105,42,0);
     glScalef(10,1,1);
 
     glTranslatef(-0.5,-0.5,-0.5);
@@ -650,14 +718,14 @@ shop_spot_lighting()
 
     // Bulb line
     glPushMatrix();
-    glTranslatef(-105,28,0);
+    glTranslatef(-105,38,0);
     glScalef(1,7,1);
     glTranslatef(-0.5,-0.5,-0.5);
     cube(0.1,1.0,0.1);
     glPopMatrix();
     //Solud sphere
     glPushMatrix();
-    glTranslatef(-105,25,0);
+    glTranslatef(-105,35,0);
     glutSolidSphere(2,16,16);
     glPopMatrix();
 
@@ -778,7 +846,7 @@ void spot_light_function(float x, float y, float z)
 {
     // Light Specification
     GLfloat no_light[] = { 0.0, 0.0, 0.0, 1.0 };
-    GLfloat light_ambient[] = {0.0, 0.5, 0.0, 1.0};
+    GLfloat light_ambient[] = {1.0, 1.0, 1.0, 1.0};
     GLfloat light_diffuse[] = { 0.0, 1.0, 0.0, 1 };
     GLfloat light_specular[] = { 1, 1, 1, 1 };
     GLfloat light_position[] = { x, y, z, 1.0 };
@@ -843,7 +911,7 @@ void car_animation(int t)
     if(t==1 && move_x)
     {
         if(carx<=300)
-            carx +=0.05;
+            carx +=0.03;
         if(carx>=300)
         {
             carx = -60;
@@ -855,9 +923,9 @@ void car_animation(int t)
 
     else if(t==2 && move_z)
     {
-        if(carz>=-50)
-            carz -=0.05;
-        if(carz<=-50)
+        if(carz>=-100)
+            carz -=0.03;
+        if(carz<=-100)
         {
             carz = 0;
             move_z = 0;
@@ -958,15 +1026,76 @@ void base_floor()
     glTranslatef(0,0,0);
     glScalef(600,1,500);
     glTranslatef(-0.5,-0.5,-0.5);
-    cube();
+    cube(0.2,0.2,0.2);
     glPopMatrix();
 
     glDisable(GL_TEXTURE_2D);
 
 }
+void swimming_pool()
+{
+    glEnable(GL_TEXTURE_2D);
+    glBindTexture(GL_TEXTURE_2D,22);
+
+    glPushMatrix();
+    glTranslatef(-250,0,-20);
+    glScalef(80,2,50);
+    glTranslatef(-0.5,-0.5,-0.5);
+    cube();
+    glPopMatrix();
+
+    glDisable(GL_TEXTURE_2D);
+
+
+    // part 1
+    glEnable(GL_TEXTURE_2D);
+    glBindTexture(GL_TEXTURE_2D,20);
+     glPushMatrix();
+    glTranslatef(-210,3,-20);
+    glScalef(5,20,50);
+    glTranslatef(-0.5,-0.5,-0.5);
+    cube();
+    glPopMatrix();
+      glDisable(GL_TEXTURE_2D);
+
+    // part 2
+    glEnable(GL_TEXTURE_2D);
+    glBindTexture(GL_TEXTURE_2D,20);
+     glPushMatrix();
+    glTranslatef(-290,3,-20);
+    glScalef(5,20,50);
+    glTranslatef(-0.5,-0.5,-0.5);
+    cube();
+    glPopMatrix();
+     glDisable(GL_TEXTURE_2D);
+
+    // Part 3
+    glEnable(GL_TEXTURE_2D);
+    glBindTexture(GL_TEXTURE_2D,20);
+    glPushMatrix();
+    glTranslatef(-250,3,-45);
+    glScalef(80,20,5);
+    glTranslatef(-0.5,-0.5,-0.5);
+    cube();
+    glPopMatrix();
+     glDisable(GL_TEXTURE_2D);
+
+    // Part 4
+    glEnable(GL_TEXTURE_2D);
+    glBindTexture(GL_TEXTURE_2D,20);
+    glPushMatrix();
+    glTranslatef(-250,3,5);
+    glScalef(80,20,5);
+    glTranslatef(-0.5,-0.5,-0.5);
+    cube();
+    glPopMatrix();
+     glDisable(GL_TEXTURE_2D);
+
+
+}
 void park()
 {
- // wood
+// wood
     glEnable(GL_TEXTURE_2D);
     glBindTexture(GL_TEXTURE_2D,13);
 
@@ -1095,10 +1224,50 @@ static void display(void)
     base_floor();
     sun_moon();
 
+    // Swimming Pool
+    swimming_pool();
+    glPushMatrix();
+    glTranslatef(-205,40,-20);
+    glScalef(5,5,5);
+    glTranslatef(-0.5,-0.5,-0.5);
+    //cube(1.0,0,0);
+    glPopMatrix();
+    glPushMatrix();
+    spot_light_function(-205,40,-40);
+    glPopMatrix();
+
+    glPushMatrix();
+    glTranslatef(-100,0,-40);
+    spot_lighting();
+    glPopMatrix();
+    //spot_light_function(-205,40,-10);
+    //spot_light_function(-205,40,-20);
+    //spot_light_function(-205,40,-30);
+    //spot_light_function(-205,40,-40);
+    /*
+    for (int i=0;i<=50;i=i+10)
+    {
+        //glPushMatrix();
+        spot_light_function(-205,40,-i);
+        //glPopMatrix();
+    }
+    */
+
+    /*
+    for (int i=-10;i<=50;i=i+10)
+    {
+
+    glPushMatrix();
+    glTranslatef(-100,0,-i);
+    spot_lighting();
+    glPopMatrix();
+    }
+    */
+
 
 
     // park tree 1
-     for (int i=10; i<=100; i+=20)
+    for (int i=10; i<=100; i+=20)
     {
         glPushMatrix();
         glTranslatef(i,-20,0);
@@ -1108,7 +1277,7 @@ static void display(void)
     }
 
     // park tree 2
-     for (int i=10; i<=100; i+=20)
+    for (int i=10; i<=100; i+=20)
     {
         glPushMatrix();
         glTranslatef(i,-20,15);
@@ -1117,8 +1286,8 @@ static void display(void)
 
     }
 
-     // park tree 3
-     for (int i=10; i<=100; i+=20)
+    // park tree 3
+    for (int i=10; i<=100; i+=20)
     {
         glPushMatrix();
         glTranslatef(i,-20,-15);
@@ -1145,9 +1314,9 @@ static void display(void)
 
     // Spot light
     glPushMatrix();
-    spot_light_function(-105,20,0);
+    spot_light_function(-105,40,0);
     glTranslatef(5,0,0);
-    shop_spot_lighting();
+    spot_lighting();
     glPopMatrix();
     //trees();
 
@@ -1274,7 +1443,7 @@ int main(int argc, char *argv[])
     glutInitWindowSize(window_width,window_height);
     glutInitWindowPosition(300,10);
     glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB | GLUT_DEPTH);
-    glutCreateWindow("3D City");
+    glutCreateWindow("3D City Architecture Design");
 
     LoadTexture("C:\\Users\\Shimul\\Documents\\CSE 4208 Computer Graphics\\City 3D\\images\\building1.bmp",1);
     LoadTexture("C:\\Users\\Shimul\\Documents\\CSE 4208 Computer Graphics\\City 3D\\images\\building7.bmp",2);
@@ -1321,6 +1490,8 @@ int main(int argc, char *argv[])
     LoadTexture("C:\\Users\\Shimul\\Documents\\CSE 4208 Computer Graphics\\City 3D\\images\\car1.bmp",20);
     // sun moon
     LoadTexture("C:\\Users\\Shimul\\Documents\\CSE 4208 Computer Graphics\\City 3D\\images\\moon1.bmp",21);
+    //swimming pool water
+    LoadTexture("C:\\Users\\Shimul\\Documents\\CSE 4208 Computer Graphics\\City 3D\\images\\water3.bmp",22);
 
 
 
@@ -1331,6 +1502,16 @@ int main(int argc, char *argv[])
     cout<<"-- Roll: 1607048 ---------"<<endl;
     cout<<"--------------------------"<<endl;
     cout<<"--------------------------"<<endl;
+    cout<<"Components of 3D City Architecture Design"<<endl;
+    cout<<"--------------------------"<<endl;
+    cout<<"1. Buildings \t 2. Roads \t 3.Traffic lights \t 4. Road lights \t "<<endl;
+    cout<<"5.Tress \t 6. Park 7. Cars \t 8.Playgrounds "<<endl;
+    cout<<"9.Shopping spot lights \t 10. Shopping Malls  \t 11. Signboard \t 12.Moon "<<endl;
+    cout<<"--------------------------"<<endl;
+
+
+
+    cout<<"---------Instruction----------"<<endl;
     cout<<"Press : u -> Move Up"<<endl;
     cout<<"Press : d -> Move Down"<<endl;
     cout<<"Press : l -> Move Left"<<endl;
@@ -1348,6 +1529,9 @@ int main(int argc, char *argv[])
     cout<<"Press : 1 -> ON/OFF Light 1"<<endl;
     cout<<"Press : 2 -> ON/OFF Light 2"<<endl;
     cout<<"Press : 3 -> ON/OFF Spot Light"<<endl;
+    cout<<"Press : 4 -> ON/OFF Moon Light"<<endl;
+
+
 
 
     glutDisplayFunc(display);
