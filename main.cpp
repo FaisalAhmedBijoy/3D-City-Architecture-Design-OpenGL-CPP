@@ -24,6 +24,7 @@ GLfloat lookZ=-500;
 bool light_switch_0=false;
 bool light_switch_1=false;
 bool spot_light_switch=false;
+bool main_light_switch=false;
 
 float carx=-60, carz=0;
 
@@ -344,8 +345,8 @@ void playground()
     glEnable(GL_TEXTURE_2D);
     glBindTexture(GL_TEXTURE_2D,7);
     glPushMatrix();
-    glTranslatef(200,0,60);
-    glScalef(50,1,50);
+    glTranslatef(210,2,-15);
+    glScalef(80,1,50);
     glTranslatef(-0.5,-0.5,-0.5);
     cube();
     glPopMatrix();
@@ -663,21 +664,53 @@ shop_spot_lighting()
     glPopMatrix();
 
 }
+void sun_moon()
+{
 
+    // shop 1
+    glEnable(GL_TEXTURE_2D);
+    glBindTexture(GL_TEXTURE_2D,21);
+
+    glPushMatrix();
+    glTranslatef(0,150,0);
+    glScalef(3,3,3);
+    glutSolidSphere(2,10,10);
+    glPopMatrix();
+    glDisable(GL_TEXTURE_2D);
+}
 void main_light()
 {
-    //GLfloat no_light[] = { 0.0, 0.0, 0.0, 1.0 };
+    GLfloat no_light[] = { 0.0, 0.0, 0.0, 1.0 };
     GLfloat light_ambient[]  = {1.0, 1.0, 1.0, 1.0};
     GLfloat light_diffuse[]  = { 1.0, 1.0, 1.0, 1.0 };
     GLfloat light_specular[] = { 1.0, 1.0, 1.0, 1.0 };
-    GLfloat light_position[] = { 0.0, 50.0, 0, 1.0 };
+    GLfloat light_position[] = { 0.0, 150.0, 0, 1.0 };
 
     glEnable( GL_LIGHT7);
 
     glLightfv( GL_LIGHT7, GL_AMBIENT, light_ambient);
     glLightfv( GL_LIGHT7, GL_DIFFUSE, light_diffuse);
     glLightfv( GL_LIGHT7, GL_SPECULAR, light_specular);
+
+    glEnable( GL_LIGHT7);
+    if (main_light_switch)
+    {
+        glLightfv( GL_LIGHT7, GL_AMBIENT, light_ambient);
+        glLightfv( GL_LIGHT7, GL_DIFFUSE, light_diffuse);
+        glLightfv( GL_LIGHT7, GL_SPECULAR, light_specular);
+
+    }
+    else
+    {
+        glLightfv( GL_LIGHT7, GL_AMBIENT, no_light);
+        glLightfv( GL_LIGHT7, GL_DIFFUSE, no_light);
+        glLightfv( GL_LIGHT7, GL_SPECULAR, no_light);
+
+    }
+
+
     glLightfv( GL_LIGHT7, GL_POSITION, light_position);
+
 }
 
 void light_function_0(float x, float y, float z)
@@ -923,7 +956,7 @@ void base_floor()
 
     glPushMatrix();
     glTranslatef(0,0,0);
-    glScalef(500,1,500);
+    glScalef(600,1,500);
     glTranslatef(-0.5,-0.5,-0.5);
     cube();
     glPopMatrix();
@@ -938,7 +971,7 @@ void park()
     glBindTexture(GL_TEXTURE_2D,13);
 
     glPushMatrix();
-    glTranslatef(180,30,-20);
+    glTranslatef(160,30,-60);
     glScalef(2,30,2);
     glTranslatef(-0.5,-0.5,-0.5);
     cube();
@@ -951,7 +984,7 @@ void park()
     glBindTexture(GL_TEXTURE_2D,17);
 
     glPushMatrix();
-    glTranslatef(180,50,-20);
+    glTranslatef(160,50,-60);
     glScalef(8,12,8);
     glTranslatef(-0.5,-0.5,-0.5);
     cube();
@@ -1022,6 +1055,9 @@ static void key(unsigned char key, int x, int y)
     case '3':
         spot_light_switch =! spot_light_switch;
         break;
+    case '4':
+        main_light_switch=!main_light_switch;
+        break;
     }
 
     glutPostRedisplay();
@@ -1057,6 +1093,7 @@ static void display(void)
 
     display_settings();
     base_floor();
+    sun_moon();
 
 
 
@@ -1188,20 +1225,35 @@ static void display(void)
     glPopMatrix();
     */
 
+    // Road light position 1
+    /*
+    glPushMatrix();
+    glTranslatef(125,20,0);
+    glScalef(2,2,2);
+    cube(1.0,0,0);
+    glPopMatrix();
+
+    */
     for (int i=10; i<=100; i=i+20)
     {
         glPushMatrix();
-        light_function_0(140,35,0);
+        light_function_0(125,20,-i);
         glTranslatef(40,-20,-i);
         road_light();
         //cube();
         glPopMatrix();
     }
-
+    // Road light position 2
+    /*
+    glPushMatrix();
+    glTranslatef(-65,20,0);
+    cube(1.0,0,0);
+    glPopMatrix();
+    */
     for (int i=10; i<=100; i=i+20)
     {
         glPushMatrix();
-        light_function_1(-150,35,0);
+        light_function_1(-65,20,-i);
         glTranslatef(-150,-20,-i);
         road_light();
         //cube();
@@ -1267,6 +1319,8 @@ int main(int argc, char *argv[])
     LoadTexture("C:\\Users\\Shimul\\Documents\\CSE 4208 Computer Graphics\\City 3D\\images\\chocolate.bmp",19);
     // base floor
     LoadTexture("C:\\Users\\Shimul\\Documents\\CSE 4208 Computer Graphics\\City 3D\\images\\car1.bmp",20);
+    // sun moon
+    LoadTexture("C:\\Users\\Shimul\\Documents\\CSE 4208 Computer Graphics\\City 3D\\images\\moon1.bmp",21);
 
 
 
