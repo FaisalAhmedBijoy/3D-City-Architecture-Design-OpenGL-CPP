@@ -17,7 +17,7 @@ Components of 3D City Architecture
 8. Tress
 9. Parks
 10. Signboard
-11. Moon
+11. Sun/Moon
 12. Swimming Pool
 ----------------------------------
 ----------------------------------
@@ -44,7 +44,7 @@ GLfloat eyeZ=50;
 
 GLfloat lookX=0;
 GLfloat lookY=40;
-GLfloat lookZ=-0;
+GLfloat lookZ=-200;
 
 bool light_switch_0=false;
 bool light_switch_1=false;
@@ -75,12 +75,12 @@ static GLubyte c_ind[6][4] =
 {
 
 
-    {3,1,5,7}, //front
-    {2,0,1,3}, //left
-    {7,5,4,6}, //right
-    {2,3,7,6}, //top
-    {1,0,5,4}, //bottom
-    {6,4,0,2}, //back
+    {3,1,5,7},
+    {2,0,1,3},
+    {7,5,4,6},
+    {2,3,7,6},
+    {1,0,5,4},
+    {6,4,0,2},
 
 
 };
@@ -390,7 +390,7 @@ void road()
 
     glPushMatrix();
     glTranslatef(0,0.5,20);
-    glScalef(500,1,15);
+    glScalef(800,1,15);
     glTranslatef(-0.5,-0.5,-0.5);
     cube();
     glPopMatrix();
@@ -404,7 +404,7 @@ void road()
     glPushMatrix();
     glTranslatef(-50,0.5,0);
     glRotatef(90,0,1,0);
-    glScalef(200,1,15);
+    glScalef(300,1,15);
     glTranslatef(-0.5,-0.5,-0.5);
     cube();
     glPopMatrix();
@@ -418,7 +418,7 @@ void road()
     glPushMatrix();
     glTranslatef(130,0.5,0);
     glRotatef(90,0,1,0);
-    glScalef(200,1,15);
+    glScalef(300,1,15);
     glTranslatef(-0.5,-0.5,-0.5);
     cube();
     glPopMatrix();
@@ -737,14 +737,14 @@ spot_lighting()
 void sun_moon()
 {
 
-    // shop 1
+    // moon 1
     glEnable(GL_TEXTURE_2D);
     glBindTexture(GL_TEXTURE_2D,21);
 
     glPushMatrix();
     glTranslatef(0,150,0);
     glScalef(3,3,3);
-    glutSolidSphere(2,10,10);
+    glutSolidSphere(2,16,16);
     glPopMatrix();
     glDisable(GL_TEXTURE_2D);
 }
@@ -1122,6 +1122,39 @@ void park()
     glPopMatrix();
     glDisable(GL_TEXTURE_2D);
 }
+void park_with_tree()
+{
+    // park tree 1
+    for (int i=10; i<=100; i+=20)
+    {
+        glPushMatrix();
+        glTranslatef(i,-20,0);
+        park();
+        glPopMatrix();
+
+    }
+
+    // park tree 2
+    for (int i=10; i<=100; i+=20)
+    {
+        glPushMatrix();
+        glTranslatef(i,-20,15);
+        park();
+        glPopMatrix();
+
+    }
+
+    // park tree 3
+    for (int i=10; i<=100; i+=20)
+    {
+        glPushMatrix();
+        glTranslatef(i,-20,-15);
+        park();
+        glPopMatrix();
+
+    }
+
+}
 static void key(unsigned char key, int x, int y)
 {
     switch (key)
@@ -1201,7 +1234,7 @@ void display_settings()
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
     int frustum_window = 8;
-    glFrustum(-frustum_window, frustum_window, -frustum_window, frustum_window, 4, 200);
+    glFrustum(-frustum_window, frustum_window, -frustum_window, frustum_window, 4, 300);
 
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
@@ -1225,9 +1258,44 @@ static void display(void)
     display_settings();
     base_floor();
     sun_moon();
+    main_light();
+    //axes();
+    buiding();
+    road();
+    playground();
+    shop();
+    // More Buildings
+    glPushMatrix();
+    glTranslatef(300,0,0);
+    base_floor();
+    buiding();
+    glPopMatrix();
+
+    // Sign board 1
+    glPushMatrix();
+    glTranslatef(-25,-10,-20);
+    signboard();
+    glPopMatrix();
+
+    // Sign board 2
+    glPushMatrix();
+    glTranslatef(200,-10,-20);
+    signboard();
+    glPopMatrix();
+
+    // Car move X and Z direction
+    glPushMatrix();
+    car_movx();
+    glPopMatrix();
+
+    glPushMatrix();
+    car_movz();
+    glPopMatrix();
+
 
     // Swimming Pool
     swimming_pool();
+
     glPushMatrix();
     glTranslatef(-205,40,-20);
     glScalef(5,5,5);
@@ -1266,55 +1334,17 @@ static void display(void)
     }
     */
 
-
-
-    // park tree 1
-    for (int i=10; i<=100; i+=20)
-    {
-        glPushMatrix();
-        glTranslatef(i,-20,0);
-        park();
-        glPopMatrix();
-
-    }
-
-    // park tree 2
-    for (int i=10; i<=100; i+=20)
-    {
-        glPushMatrix();
-        glTranslatef(i,-20,15);
-        park();
-        glPopMatrix();
-
-    }
-
-    // park tree 3
-    for (int i=10; i<=100; i+=20)
-    {
-        glPushMatrix();
-        glTranslatef(i,-20,-15);
-        park();
-        glPopMatrix();
-
-    }
+     park_with_tree();
+     // more park
+     glPushMatrix();
+     glTranslatef(-450,0,-20);
+     park_with_tree();
+     glPopMatrix();
 
 
 
-    main_light();
-    //axes();
-    buiding();
-    glPushMatrix();
-    car_movx();
-    glPopMatrix();
 
-    glPushMatrix();
-    car_movz();
-    glPopMatrix();
-
-    road();
-    playground();
-
-    // Spot light
+    // Spot light for shop
     glPushMatrix();
     spot_light_function(-105,40,0);
     glTranslatef(5,0,0);
@@ -1357,27 +1387,6 @@ static void display(void)
     glTranslatef(140,-20,10);
     traffic_signal();
     glPopMatrix();
-
-
-
-    // Sign board 1
-    glPushMatrix();
-    glTranslatef(-25,-10,-20);
-    signboard();
-    glPopMatrix();
-
-    // Sign board 2
-    glPushMatrix();
-    glTranslatef(200,-10,-20);
-    signboard();
-    glPopMatrix();
-
-
-
-
-    shop();
-
-
 
     /*
     //light 1
@@ -1447,6 +1456,7 @@ int main(int argc, char *argv[])
     glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB | GLUT_DEPTH);
     glutCreateWindow("3D City Architecture Design");
 
+    // Building texture
     LoadTexture("C:\\Users\\Shimul\\Documents\\CSE 4208 Computer Graphics\\City 3D\\images\\building1.bmp",1);
     LoadTexture("C:\\Users\\Shimul\\Documents\\CSE 4208 Computer Graphics\\City 3D\\images\\building7.bmp",2);
     LoadTexture("C:\\Users\\Shimul\\Documents\\CSE 4208 Computer Graphics\\City 3D\\images\\building3.bmp",3);
@@ -1491,7 +1501,7 @@ int main(int argc, char *argv[])
     // base floor
     LoadTexture("C:\\Users\\Shimul\\Documents\\CSE 4208 Computer Graphics\\City 3D\\images\\car1.bmp",20);
     // sun moon
-    LoadTexture("C:\\Users\\Shimul\\Documents\\CSE 4208 Computer Graphics\\City 3D\\images\\moon1.bmp",21);
+    LoadTexture("C:\\Users\\Shimul\\Documents\\CSE 4208 Computer Graphics\\City 3D\\images\\sun1.bmp",21);
     //swimming pool water
     LoadTexture("C:\\Users\\Shimul\\Documents\\CSE 4208 Computer Graphics\\City 3D\\images\\water3.bmp",22);
 
@@ -1508,7 +1518,7 @@ int main(int argc, char *argv[])
     cout<<"-------------------------------------------------------------------------------------------"<<endl;
     cout<<"1. Buildings \t\t 2. Roads \t\t 3. Traffic lights \t 4. Road lights \t "<<endl;
     cout<<"5. Tress \t\t 6. Park \t\t 7. Cars \t\t 8. Playgrounds "<<endl;
-    cout<<"9. Swimming Pool \t 10. Shopping Malls  \t 11. Signboard \t\t 12. Moon "<<endl;
+    cout<<"9. Swimming Pool \t 10. Shopping Malls  \t 11. Signboard \t\t 12. Sun/Moon "<<endl;
     cout<<"-------------------------------------------------------------------------------------------"<<endl;
 
 
