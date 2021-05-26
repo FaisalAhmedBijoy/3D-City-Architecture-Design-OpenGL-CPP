@@ -4,7 +4,8 @@
 Faisal Ahmed
 Roll: 1607048
 Department of CSE, KUET
---------------------------
+----------------------------------
+----------------------------------
 Components of 3D City Architecture
 1. Building
 2. Road
@@ -16,9 +17,10 @@ Components of 3D City Architecture
 8. Tress
 9. Parks
 10. Signboard
-11. Shop spot light
-12. Moon
---------------------
+11. Moon
+12. Swimming Pool
+----------------------------------
+----------------------------------
 */
 
 #include<GL/gl.h>
@@ -42,7 +44,7 @@ GLfloat eyeZ=50;
 
 GLfloat lookX=0;
 GLfloat lookY=40;
-GLfloat lookZ=-500;
+GLfloat lookZ=-0;
 
 bool light_switch_0=false;
 bool light_switch_1=false;
@@ -1495,41 +1497,41 @@ int main(int argc, char *argv[])
 
 
 
-    cout<<"--------------------------"<<endl;
-    cout<<"--------------------------"<<endl;
-    cout<<"-- 3D City Design ---"<<endl;
-    cout<<"-- Faisal Ahmed ----------"<<endl;
-    cout<<"-- Roll: 1607048 ---------"<<endl;
-    cout<<"--------------------------"<<endl;
-    cout<<"--------------------------"<<endl;
-    cout<<"Components of 3D City Architecture Design"<<endl;
-    cout<<"--------------------------"<<endl;
-    cout<<"1. Buildings \t 2. Roads \t 3.Traffic lights \t 4. Road lights \t "<<endl;
-    cout<<"5.Tress \t 6. Park 7. Cars \t 8.Playgrounds "<<endl;
-    cout<<"9.Shopping spot lights \t 10. Shopping Malls  \t 11. Signboard \t 12.Moon "<<endl;
-    cout<<"--------------------------"<<endl;
+    cout<<"-------------------------------------------------------------------------------------------"<<endl;
+    cout<<"-------------------------------------------------------------------------------------------"<<endl;
+    cout<<"------------------------------------------- 3D City Design --------------------------------"<<endl;
+    cout<<"-------------------------------------------- Faisal Ahmed ---------------------------------"<<endl;
+    cout<<"-------------------------------------------- Roll: 1607048 --------------------------------"<<endl;
+    cout<<"-------------------------------------------------------------------------------------------"<<endl;
+    cout<<"-------------------------------------------------------------------------------------------"<<endl;
+    cout<<"------------------------------ Components of 3D City Architecture Design ------------------"<<endl;
+    cout<<"-------------------------------------------------------------------------------------------"<<endl;
+    cout<<"1. Buildings \t\t 2. Roads \t\t 3. Traffic lights \t 4. Road lights \t "<<endl;
+    cout<<"5. Tress \t\t 6. Park \t\t 7. Cars \t\t 8. Playgrounds "<<endl;
+    cout<<"9. Swimming Pool \t 10. Shopping Malls  \t 11. Signboard \t\t 12. Moon "<<endl;
+    cout<<"-------------------------------------------------------------------------------------------"<<endl;
 
 
 
-    cout<<"---------Instruction----------"<<endl;
-    cout<<"Press : u -> Move Up"<<endl;
-    cout<<"Press : d -> Move Down"<<endl;
-    cout<<"Press : l -> Move Left"<<endl;
-    cout<<"Press : r -> Move Right"<<endl;
+    cout<<"--------------------------------------------Instruction------------------------------------"<<endl;
+    cout<<"\t Press : u -> Move Up"<<endl;
+    cout<<"\t Press : d -> Move Down"<<endl;
+    cout<<"\t Press : l -> Move Left"<<endl;
+    cout<<"\t Press : r -> Move Right"<<endl;
 
-    cout<<"Press : p -> Rotate Right"<<endl;
-    cout<<"Press : p -> Rotate Right"<<endl;
+    cout<<"\t Press : p -> Rotate Right"<<endl;
+    cout<<"\t Press : p -> Rotate Right"<<endl;
 
-    cout<<"Press : a -> Look Right"<<endl;
-    cout<<"Press : b -> Look Left"<<endl;
+    cout<<"\t Press : a -> Look Right"<<endl;
+    cout<<"\t Press : b -> Look Left"<<endl;
 
-    cout<<"Press : + -> Zoom In"<<endl;
-    cout<<"Press : - -> Zoom Out"<<endl;
+    cout<<"\t Press : + -> Zoom In"<<endl;
+    cout<<"\t Press : - -> Zoom Out"<<endl;
 
-    cout<<"Press : 1 -> ON/OFF Light 1"<<endl;
-    cout<<"Press : 2 -> ON/OFF Light 2"<<endl;
-    cout<<"Press : 3 -> ON/OFF Spot Light"<<endl;
-    cout<<"Press : 4 -> ON/OFF Moon Light"<<endl;
+    cout<<"\t Press : 1 -> ON/OFF Light 1"<<endl;
+    cout<<"\t Press : 2 -> ON/OFF Light 2"<<endl;
+    cout<<"\t Press : 3 -> ON/OFF Spot Light"<<endl;
+    cout<<"\t Press : 4 -> ON/OFF Moon Light"<<endl;
 
 
 
