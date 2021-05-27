@@ -849,7 +849,7 @@ void spot_light_function(float x, float y, float z)
     // Light Specification
     GLfloat no_light[] = { 0.0, 0.0, 0.0, 1.0 };
     GLfloat light_ambient[] = {1.0, 1.0, 1.0, 1.0};
-    GLfloat light_diffuse[] = { 0.0, 1.0, 0.0, 1 };
+    GLfloat light_diffuse[] = { 0.1, 1.0, 0.1, 1 };
     GLfloat light_specular[] = { 1, 1, 1, 1 };
     GLfloat light_position[] = { x, y, z, 1.0 };
 
@@ -872,7 +872,7 @@ void spot_light_function(float x, float y, float z)
 
     glLightfv( GL_LIGHT2, GL_POSITION, light_position);
     GLfloat direction[]= {0,-1,0,1};
-    GLfloat cut_off=60;
+    GLfloat cut_off=70;
     glLightfv(GL_LIGHT2,GL_SPOT_DIRECTION,direction);
     glLightf(GL_LIGHT2,GL_SPOT_CUTOFF,cut_off);
 
@@ -1252,13 +1252,13 @@ static void display(void)
     swimming_pool();
 
     glPushMatrix();
-    glTranslatef(-205,40,-20);
+    glTranslatef(-205,45,-40);
     glScalef(5,5,5);
     glTranslatef(-0.5,-0.5,-0.5);
-    //cube(1.0,0,0);
+    cube(1.0,0,0);
     glPopMatrix();
     glPushMatrix();
-    spot_light_function(-205,40,-40);
+    spot_light_function(-205,45,-40);
     glPopMatrix();
 
     glPushMatrix();
@@ -1496,7 +1496,7 @@ int main(int argc, char *argv[])
     cout<<"\t Press : 1 -> ON/OFF Light 1"<<endl;
     cout<<"\t Press : 2 -> ON/OFF Light 2"<<endl;
     cout<<"\t Press : 3 -> ON/OFF Spot Light"<<endl;
-    cout<<"\t Press : 4 -> ON/OFF Moon Light"<<endl;
+    cout<<"\t Press : 4 -> ON/OFF Sun/Moon Light"<<endl;
 
 
 
