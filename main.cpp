@@ -1083,6 +1083,105 @@ void park()
     glPopMatrix();
     glDisable(GL_TEXTURE_2D);
 }
+int sec_angle =90, min_angle= 30, hour_angle= 0;
+int sec_inc_en = 1, min_inc_en = 1;
+void sec_inc_enable(int a)
+{
+    sec_inc_en = a;
+}
+void sec_inc()
+{
+    if(sec_inc_en)
+    {
+        sec_angle -= 6;
+        sec_inc_en = 0;
+        glutTimerFunc(1000,sec_inc_enable,1);
+    }
+
+    glutPostRedisplay();
+}
+void min_inc_enable(int b)
+{
+    min_inc_en = b;
+}
+void min_inc()
+{
+    if(min_inc_en)
+    {
+        min_angle -= 6;
+        min_inc_en = 0;
+        glutTimerFunc(60000,min_inc_enable,1);
+    }
+
+    glutPostRedisplay();
+}
+
+void watch_stand()
+{
+    // Watch Base
+    glEnable(GL_TEXTURE_2D);
+    glBindTexture(GL_TEXTURE_2D,24);
+    glPushMatrix();
+    glScalef(10,50,2);
+    cube();
+    glPopMatrix();
+}
+void wall_watch()
+{
+
+
+    //Draw Torus
+    glPushMatrix();
+    material_property(.2,0.8,0.8);
+    glutSolidTorus(4,25,16,16);
+    glPopMatrix();
+     glDisable(GL_TEXTURE_2D);
+
+    //center
+    glEnable(GL_TEXTURE_2D);
+    glBindTexture(GL_TEXTURE_2D,23);
+
+    glPushMatrix();
+    glTranslatef(0,0,-0.5);
+    glScalef(40,40,1);
+    glTranslatef(-0.5,-0.5,-0.5);
+    cube();
+    glPopMatrix();
+
+    glDisable(GL_TEXTURE_2D);
+
+    //sec_cube
+    glPushMatrix();
+    glRotatef(sec_angle,0,0,1);
+    glTranslatef(10,0,0);
+    glScalef(20,0.5,0.1);
+    glTranslatef(-0.5,-0.5,-0.5);
+    cube(1,0,0);
+    sec_inc();
+    glPopMatrix();
+
+    //min_cube
+    glPushMatrix();
+    glRotatef(min_angle,0,0,1);
+    glTranslatef(4,0,0);
+    glScalef(8,0.5,0.1);
+    glTranslatef(-0.5,-0.5,-0.5);
+    cube(1,0,1);
+    min_inc();
+    glPopMatrix();
+
+    //hour_cube
+    glPushMatrix();
+    glRotatef(hour_angle,0,0,1);
+    glTranslatef(2.5,0,0);
+    glScalef(5,0.5,0.1);
+    glTranslatef(-0.5,-0.5,-0.5);
+    cube(1,1,0);
+    glPopMatrix();
+
+
+
+}
 void park_with_tree()
 {
     // park tree 1
@@ -1225,9 +1324,25 @@ static void display(void)
     road();
     playground();
     shop();
-    // More Buildings
+
+    // Wall Watch with base tower
     glPushMatrix();
     glTranslatef(300,0,0);
+    glScalef(0.5,0.5,0.5);
+    // watch function start
+    watch_stand();
+    glPushMatrix();
+    glTranslatef(5,75,0);
+
+    wall_watch();
+    glPopMatrix();
+    // watch function end
+
+    glPopMatrix();
+
+    // More Buildings
+    glPushMatrix();
+    glTranslatef(350,0,0);
     base_floor();
     buiding();
     glPopMatrix();
@@ -1255,7 +1370,7 @@ static void display(void)
     glTranslatef(-205,45,-40);
     glScalef(5,5,5);
     glTranslatef(-0.5,-0.5,-0.5);
-    cube(1.0,0,0);
+    //cube(1.0,0,0);
     glPopMatrix();
     glPushMatrix();
     spot_light_function(-205,45,-40);
@@ -1401,17 +1516,9 @@ static void display(void)
     glFlush();
     glutSwapBuffers();
 }
-
-int main(int argc, char *argv[])
+void texture_function()
 {
-
-    glutInit(&argc, argv);
-    glutInitWindowSize(window_width,window_height);
-    glutInitWindowPosition(300,10);
-    glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB | GLUT_DEPTH);
-    glutCreateWindow("3D City Architecture Design");
-
-    // Building texture
+     // Building texture
     LoadTexture("C:\\Users\\Shimul\\Documents\\CSE 4208 Computer Graphics\\City 3D\\images\\building1.bmp",1);
     LoadTexture("C:\\Users\\Shimul\\Documents\\CSE 4208 Computer Graphics\\City 3D\\images\\building7.bmp",2);
     LoadTexture("C:\\Users\\Shimul\\Documents\\CSE 4208 Computer Graphics\\City 3D\\images\\building3.bmp",3);
@@ -1459,7 +1566,21 @@ int main(int argc, char *argv[])
     LoadTexture("C:\\Users\\Shimul\\Documents\\CSE 4208 Computer Graphics\\City 3D\\images\\sun1.bmp",21);
     //swimming pool water
     LoadTexture("C:\\Users\\Shimul\\Documents\\CSE 4208 Computer Graphics\\City 3D\\images\\water3.bmp",22);
+    // watch
+    LoadTexture("C:\\Users\\Shimul\\Documents\\CSE 4208 Computer Graphics\\City 3D\\images\\watch1.bmp",23);
+    // Walls
+    LoadTexture("C:\\Users\\Shimul\\Documents\\CSE 4208 Computer Graphics\\City 3D\\images\\floor3.bmp",24);
+}
+int main(int argc, char *argv[])
+{
 
+    glutInit(&argc, argv);
+    glutInitWindowSize(window_width,window_height);
+    glutInitWindowPosition(300,10);
+    glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB | GLUT_DEPTH);
+    glutCreateWindow("3D City Architecture Design");
+
+    texture_function();
 
 
     cout<<"-------------------------------------------------------------------------------------------"<<endl;
