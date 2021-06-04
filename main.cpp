@@ -980,6 +980,89 @@ void car_move()
 
 }
 
+void bus_front()
+{
+
+    //base
+    glPushMatrix();
+    glTranslatef(0,10,0);
+    glScalef(20,20,2);
+    cube();
+    glPopMatrix();
+
+    // glass
+    glPushMatrix();
+    glTranslatef(2,18,2);
+    glScalef(15,10,1);
+    cube(0.0,1.0,1.0);
+    glPopMatrix();
+
+    // Lights 1
+    glPopMatrix();
+    glTranslatef(5,15,2);
+    glutSolidTorus(0.5,1,16,16);
+    glPopMatrix();
+
+    // Lights 2
+    glPopMatrix();
+    glTranslatef(10,0,0);
+    glutSolidTorus(0.5,1,16,16);
+    glPopMatrix();
+
+}
+void bus_left_side()
+{
+    glPushMatrix();
+    glTranslatef(-16,0,-40);
+    glScalef(1,15,40);
+    cube(0.0,1.0,0);
+    glPopMatrix();
+
+}
+
+void bus_right_side()
+{
+    glPushMatrix();
+    glTranslatef(5,0,-40);
+    glScalef(1,15,40);
+    cube(0.0,1.0,0);
+    glPopMatrix();
+
+}
+void bus_back_side()
+{
+    //base
+    glPushMatrix();
+    glTranslatef(-16,-5,-43);
+    glScalef(20,20,1);
+    cube(.6,.8,.7);
+    glPopMatrix();
+
+}
+void bus()
+{
+    // Body of Bus
+    glPushMatrix();
+    glTranslatef(0,10,-40);
+    glScalef(20,20,40);
+    cube(1.0,0,0);
+    glPopMatrix();
+
+    //FRONT
+    bus_front();
+
+    // Bus left side
+    bus_left_side();
+    // Bus right side
+    bus_right_side();
+
+    // bus back side
+    bus_back_side();
+    // bus wheels
+
+
+}
+
 void base_floor()
 {
     glEnable(GL_TEXTURE_2D);
@@ -1013,7 +1096,7 @@ void swimming_pool()
     // part 1
     glEnable(GL_TEXTURE_2D);
     glBindTexture(GL_TEXTURE_2D,20);
-     glPushMatrix();
+    glPushMatrix();
     glTranslatef(-210,3,-20);
     glScalef(5,20,50);
     glTranslatef(-0.5,-0.5,-0.5);
@@ -1320,7 +1403,7 @@ static void display(void)
     sun_moon();
     main_light();
     //axes();
-    buiding();
+   // buiding();
     road();
     playground();
     shop();
@@ -1358,10 +1441,13 @@ static void display(void)
     glTranslatef(200,-10,-20);
     signboard();
     glPopMatrix();
-    // Car Move
+     //Car Move
     glPushMatrix();
-    car_move();
+    //car_move();
     glPopMatrix();
+
+    // BUS
+    bus();
 
     // Swimming Pool
     swimming_pool();
