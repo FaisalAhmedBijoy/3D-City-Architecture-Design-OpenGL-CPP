@@ -1832,6 +1832,9 @@ int main(int argc, char *argv[])
     cout<<"\t Press : 3 -> ON/OFF Spot Light"<<endl;
     cout<<"\t Press : 4 -> ON/OFF Sun/Moon Light"<<endl;
 
+    cout<<"\t Press : 8 -> START/STOP Car Moving"<<endl;
+    cout<<"\t Press : 9 -> START/STOP Bus Moving"<<endl;
+
 
 
 
