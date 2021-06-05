@@ -52,6 +52,7 @@ bool spot_light_switch=false;
 bool main_light_switch=false;
 
 float carx=-300, carz=0;
+float busx=0, busz=-300;
 
 float rot = 0;
 
@@ -998,14 +999,14 @@ void bus_front()
     glPopMatrix();
 
     // Lights 1
-    glPopMatrix();
+    glPushMatrix();
     glTranslatef(5,15,2);
     glutSolidTorus(0.5,1,16,16);
     glPopMatrix();
 
     // Lights 2
-    glPopMatrix();
-    glTranslatef(10,0,0);
+    glPushMatrix();
+    glTranslatef(15,15,2);
     glutSolidTorus(0.5,1,16,16);
     glPopMatrix();
 
@@ -1013,7 +1014,7 @@ void bus_front()
 void bus_left_side()
 {
     glPushMatrix();
-    glTranslatef(-16,0,-40);
+    glTranslatef(-1,10,-40);
     glScalef(1,15,40);
     cube(0.0,1.0,0);
     glPopMatrix();
@@ -1023,7 +1024,7 @@ void bus_left_side()
 void bus_right_side()
 {
     glPushMatrix();
-    glTranslatef(5,0,-40);
+    glTranslatef(20,10,-40);
     glScalef(1,15,40);
     cube(0.0,1.0,0);
     glPopMatrix();
@@ -1033,14 +1034,50 @@ void bus_back_side()
 {
     //base
     glPushMatrix();
-    glTranslatef(-16,-5,-43);
+    glTranslatef(0,10,-41);
     glScalef(20,20,1);
     cube(.6,.8,.7);
     glPopMatrix();
 
 }
+void bus_wheels()
+{
+
+
+ // wheel 1
+ glPushMatrix();
+ glTranslatef(2,5,-10);
+ glRotatef(90,0,1,0);
+ glutSolidTorus(2,4,16,16);
+ glPopMatrix();
+
+ // wheel 2
+ glPushMatrix();
+ glTranslatef(20,5,-10);
+ glRotatef(90,0,1,0);
+ glutSolidTorus(2,4,16,16);
+ glPopMatrix();
+
+  // wheel 3
+ glPushMatrix();
+ glTranslatef(2,5,-35);
+ glRotatef(90,0,1,0);
+ glutSolidTorus(2,4,16,16);
+ glPopMatrix();
+
+ // wheel 4
+ glPushMatrix();
+ glTranslatef(20,5,-35);
+ glRotatef(90,0,1,0);
+ glutSolidTorus(2,4,16,16);
+ glPopMatrix();
+
+
+
+}
 void bus()
 {
+    glPushMatrix();
     // Body of Bus
     glPushMatrix();
     glTranslatef(0,10,-40);
@@ -1049,19 +1086,68 @@ void bus()
     glPopMatrix();
 
     //FRONT
+
+
     bus_front();
 
+
+
     // Bus left side
-    bus_left_side();
+
+     bus_left_side();
+
+
     // Bus right side
+
     bus_right_side();
 
+
     // bus back side
+
     bus_back_side();
+
+
     // bus wheels
+
+    bus_wheels();
+
+
+    glPopMatrix();
+
+
 
 
 }
+void bus_animation()
+{
+         if(busz<=300)
+        {
+
+            busz +=0.05;
+        }
+        if(busz>=300)
+        {
+            busz = -300;
+
+        }
+
+    glutPostRedisplay();
+
+}
+void bus_move()
+{
+    for(int i=1; i<=100; i+=50)
+        {
+            glPushMatrix();
+            glTranslatef(0,0,busz+i);
+            bus();
+            bus_animation();
+            glPopMatrix();
+        }
+
+
+}
+
 
 void base_floor()
 {
@@ -1447,8 +1533,10 @@ static void display(void)
     glPopMatrix();
 
     // BUS
-    bus();
-
+    //bus();
+    glPushMatrix();
+    bus_move();
+    glPopMatrix();
     // Swimming Pool
     swimming_pool();
 
