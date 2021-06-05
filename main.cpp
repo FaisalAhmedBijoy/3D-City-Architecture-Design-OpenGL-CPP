@@ -53,6 +53,8 @@ bool main_light_switch=false;
 
 float carx=-300, carz=0;
 float busx=0, busz=-300;
+bool bus_switch=true;
+bool car_switch=true;
 
 float rot = 0;
 
@@ -405,7 +407,7 @@ void road()
     glPushMatrix();
     glTranslatef(-50,0.5,0);
     glRotatef(90,0,1,0);
-    glScalef(300,1,15);
+    glScalef(300,1,20);
     glTranslatef(-0.5,-0.5,-0.5);
     cube();
     glPopMatrix();
@@ -417,9 +419,9 @@ void road()
     glBindTexture(GL_TEXTURE_2D,10);
 
     glPushMatrix();
-    glTranslatef(130,0.5,0);
+    glTranslatef(135,0.5,0);
     glRotatef(90,0,1,0);
-    glScalef(300,1,15);
+    glScalef(300,1,20);
     glTranslatef(-0.5,-0.5,-0.5);
     cube();
     glPopMatrix();
@@ -954,16 +956,16 @@ void cars()
 }
 void car_animation()
 {
-        if(carx<=300)
-        {
+    if(carx<=300)
+    {
 
-            carx +=0.05;
-        }
-        if(carx>=300)
-        {
-            carx = -300;
+        carx +=0.05;
+    }
+    if(carx>=300)
+    {
+        carx = -300;
 
-        }
+    }
 
     glutPostRedisplay();
 
@@ -971,13 +973,16 @@ void car_animation()
 void car_move()
 {
     for(int i=1; i<=100; i+=30)
-        {
-            glPushMatrix();
-            glTranslatef(carx+i,0,0);
-            cars();
-            car_animation();
-            glPopMatrix();
+    {
+        glPushMatrix();
+        glTranslatef(carx+i,0,0);
+        cars();
+        if (car_switch){
+
+        car_animation();
         }
+        glPopMatrix();
+    }
 
 }
 
@@ -1044,33 +1049,33 @@ void bus_wheels()
 {
 
 
- // wheel 1
- glPushMatrix();
- glTranslatef(2,5,-10);
- glRotatef(90,0,1,0);
- glutSolidTorus(2,4,16,16);
- glPopMatrix();
+// wheel 1
+    glPushMatrix();
+    glTranslatef(2,5,-10);
+    glRotatef(90,0,1,0);
+    glutSolidTorus(2,4,16,16);
+    glPopMatrix();
 
- // wheel 2
- glPushMatrix();
- glTranslatef(20,5,-10);
- glRotatef(90,0,1,0);
- glutSolidTorus(2,4,16,16);
- glPopMatrix();
+// wheel 2
+    glPushMatrix();
+    glTranslatef(20,5,-10);
+    glRotatef(90,0,1,0);
+    glutSolidTorus(2,4,16,16);
+    glPopMatrix();
 
-  // wheel 3
- glPushMatrix();
- glTranslatef(2,5,-35);
- glRotatef(90,0,1,0);
- glutSolidTorus(2,4,16,16);
- glPopMatrix();
+    // wheel 3
+    glPushMatrix();
+    glTranslatef(2,5,-35);
+    glRotatef(90,0,1,0);
+    glutSolidTorus(2,4,16,16);
+    glPopMatrix();
 
- // wheel 4
- glPushMatrix();
- glTranslatef(20,5,-35);
- glRotatef(90,0,1,0);
- glutSolidTorus(2,4,16,16);
- glPopMatrix();
+// wheel 4
+    glPushMatrix();
+    glTranslatef(20,5,-35);
+    glRotatef(90,0,1,0);
+    glutSolidTorus(2,4,16,16);
+    glPopMatrix();
 
 
 
@@ -1094,7 +1099,7 @@ void bus()
 
     // Bus left side
 
-     bus_left_side();
+    bus_left_side();
 
 
     // Bus right side
@@ -1120,16 +1125,16 @@ void bus()
 }
 void bus_animation()
 {
-         if(busz<=300)
-        {
+    if(busz<=300)
+    {
 
-            busz +=0.05;
-        }
-        if(busz>=300)
-        {
-            busz = -300;
+        busz +=0.05;
+    }
+    if(busz>=300)
+    {
+        busz = -300;
 
-        }
+    }
 
     glutPostRedisplay();
 
@@ -1137,17 +1142,56 @@ void bus_animation()
 void bus_move()
 {
     for(int i=1; i<=100; i+=50)
+    {
+        glPushMatrix();
+        glTranslatef(0,0,busz+i);
+        bus();
+        if (bus_switch)
         {
-            glPushMatrix();
-            glTranslatef(0,0,busz+i);
-            bus();
+
             bus_animation();
-            glPopMatrix();
         }
+
+        glPopMatrix();
+    }
 
 
 }
 
+void bus_control()
+{
+    if (bus_switch)
+    {
+
+        //bus_move();
+        glPushMatrix();
+        glTranslatef(-55,0,0);
+        glScalef(0.5,0.5,0.5);
+        bus_move();
+        glPopMatrix();
+    }
+    else
+    {
+        // Bus stop
+
+
+    }
+
+}
+void car_control()
+{
+    if (car_switch)
+    {
+        glPushMatrix();
+        car_move();
+        glPopMatrix();
+
+    }
+    else
+    {
+        // car stop
+    }
+}
 
 void base_floor()
 {
@@ -1188,18 +1232,18 @@ void swimming_pool()
     glTranslatef(-0.5,-0.5,-0.5);
     cube();
     glPopMatrix();
-      glDisable(GL_TEXTURE_2D);
+    glDisable(GL_TEXTURE_2D);
 
     // part 2
     glEnable(GL_TEXTURE_2D);
     glBindTexture(GL_TEXTURE_2D,20);
-     glPushMatrix();
+    glPushMatrix();
     glTranslatef(-290,3,-20);
     glScalef(5,20,50);
     glTranslatef(-0.5,-0.5,-0.5);
     cube();
     glPopMatrix();
-     glDisable(GL_TEXTURE_2D);
+    glDisable(GL_TEXTURE_2D);
 
     // Part 3
     glEnable(GL_TEXTURE_2D);
@@ -1210,7 +1254,7 @@ void swimming_pool()
     glTranslatef(-0.5,-0.5,-0.5);
     cube();
     glPopMatrix();
-     glDisable(GL_TEXTURE_2D);
+    glDisable(GL_TEXTURE_2D);
 
     // Part 4
     glEnable(GL_TEXTURE_2D);
@@ -1221,7 +1265,7 @@ void swimming_pool()
     glTranslatef(-0.5,-0.5,-0.5);
     cube();
     glPopMatrix();
-     glDisable(GL_TEXTURE_2D);
+    glDisable(GL_TEXTURE_2D);
 
 
 }
@@ -1304,7 +1348,7 @@ void wall_watch()
     material_property(.2,0.8,0.8);
     glutSolidTorus(4,25,16,16);
     glPopMatrix();
-     glDisable(GL_TEXTURE_2D);
+    glDisable(GL_TEXTURE_2D);
 
     //center
     glEnable(GL_TEXTURE_2D);
@@ -1451,6 +1495,12 @@ static void key(unsigned char key, int x, int y)
     case '4':
         main_light_switch=!main_light_switch;
         break;
+    case '8':
+        car_switch=!car_switch;
+        break;
+    case '9':
+        bus_switch=!bus_switch;
+        break;
     }
 
     glutPostRedisplay();
@@ -1489,7 +1539,7 @@ static void display(void)
     sun_moon();
     main_light();
     //axes();
-   // buiding();
+    buiding();
     road();
     playground();
     shop();
@@ -1527,16 +1577,16 @@ static void display(void)
     glTranslatef(200,-10,-20);
     signboard();
     glPopMatrix();
-     //Car Move
-    glPushMatrix();
-    //car_move();
-    glPopMatrix();
+
+
+    //Car Move
+
 
     // BUS
     //bus();
-    glPushMatrix();
-    bus_move();
-    glPopMatrix();
+    //bus_car_control();
+     bus_control();
+     car_control();
     // Swimming Pool
     swimming_pool();
 
@@ -1578,12 +1628,12 @@ static void display(void)
     }
     */
 
-     park_with_tree();
-     // more park
-     glPushMatrix();
-     glTranslatef(-450,0,-20);
-     park_with_tree();
-     glPopMatrix();
+    park_with_tree();
+    // more park
+    glPushMatrix();
+    glTranslatef(-450,0,-20);
+    park_with_tree();
+    glPopMatrix();
 
 
 
@@ -1692,7 +1742,7 @@ static void display(void)
 }
 void texture_function()
 {
-     // Building texture
+    // Building texture
     LoadTexture("C:\\Users\\Shimul\\Documents\\CSE 4208 Computer Graphics\\City 3D\\images\\building1.bmp",1);
     LoadTexture("C:\\Users\\Shimul\\Documents\\CSE 4208 Computer Graphics\\City 3D\\images\\building7.bmp",2);
     LoadTexture("C:\\Users\\Shimul\\Documents\\CSE 4208 Computer Graphics\\City 3D\\images\\building3.bmp",3);
