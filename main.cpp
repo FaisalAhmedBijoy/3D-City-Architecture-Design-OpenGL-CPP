@@ -1128,7 +1128,7 @@ void bus_animation()
     if(busz<=300)
     {
 
-        busz +=0.05;
+        busz +=0.08;
     }
     if(busz>=300)
     {
@@ -1160,8 +1160,7 @@ void bus_move()
 
 void bus_control()
 {
-    if (bus_switch)
-    {
+
 
         //bus_move();
         glPushMatrix();
@@ -1169,28 +1168,18 @@ void bus_control()
         glScalef(0.5,0.5,0.5);
         bus_move();
         glPopMatrix();
-    }
-    else
-    {
-        // Bus stop
 
 
-    }
 
 }
 void car_control()
 {
-    if (car_switch)
-    {
+
         glPushMatrix();
         car_move();
         glPopMatrix();
 
-    }
-    else
-    {
-        // car stop
-    }
+
 }
 
 void base_floor()
