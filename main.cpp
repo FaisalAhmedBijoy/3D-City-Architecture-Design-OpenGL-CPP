@@ -60,6 +60,169 @@ float rot = 0;
 
 unsigned int ID;
 
+const double PI = 3.14159265389;
+
+
+/* GLUT callback Handlers */
+
+
+int anglex= 0, angley = 0, anglez = 0;          //rotation angles
+int window;
+int wired=0;
+int shcpt=1;
+int animat = 0;
+const int L=20;
+const int dgre=3;
+int ncpt=L+1;
+int clikd=0;
+const int nt = 40;				//number of slices along x-direction
+const int ntheta = 20;
+
+
+GLfloat ctrlpoints[L+1][3] =
+{
+{7.625,5.4,0},
+{7.325,4.775,0},
+{7.225,4.05,0},
+{6.975,3.4,0},
+{6.675,2.85,0},
+{6.275,2.15,0},
+{5.85,1.725,0},
+{4.85,1.15,0},
+{3.975,0.9,0},
+{3.325,0.85,0},
+{2.9,0.375,0},
+{2.775,-0.175,0},
+{2.725,-0.7,0},
+{3.225,-0.925,0},
+{3.875,-0.9,0},
+{5.175,-1.375,0},
+{5.825,-1.975,0},
+{6.5,-2.725,0},
+{6.925,-3.925,0},
+{7.325,-5.05,0},
+{7.6,0.175,0},
+};
+
+
+
+
+float wcsClkDn[3],wcsClkUp[3];
+///////////////////////////////
+class point1
+{
+public:
+    point1()
+    {
+        x=0;
+        y=0;
+    }
+    int x;
+    int y;
+} clkpt[2];
+int curve_flag=0;
+GLint viewport[4]; //var to hold the viewport info
+GLdouble modelview[16]; //var to hold the modelview info
+GLdouble projection[16]; //var to hold the projection matrix info
+
+//////////////////////////
+void scsToWcs(float sx,float sy, float wcsv[3] );
+void processMouse(int button, int state, int x, int y);
+void matColor(float kdr, float kdg, float kdb,  float shiny, int frnt_Back=0, float ambFactor=1.0, float specFactor=1.0);
+///////////////////////////
+
+void scsToWcs(float sx,float sy, float wcsv[3] )
+{
+
+    GLfloat winX, winY, winZ; //variables to hold screen x,y,z coordinates
+    GLdouble worldX, worldY, worldZ; //variables to hold world x,y,z coordinates
+
+    //glGetDoublev( GL_MODELVIEW_MATRIX, modelview ); //get the modelview info
+    glGetDoublev( GL_PROJECTION_MATRIX, projection ); //get the projection matrix info
+    glGetIntegerv( GL_VIEWPORT, viewport ); //get the viewport info
+
+    winX = sx;
+    winY = (float)viewport[3] - (float)sy;
+    winZ = 0;
+
+    //get the world coordinates from the screen coordinates
+    gluUnProject( winX, winY, winZ, modelview, projection, viewport, &worldX, &worldY, &worldZ);
+    wcsv[0]=worldX;
+    wcsv[1]=worldY;
+    wcsv[2]=worldZ;
+
+
+}
+void processMouse(int button, int state, int x, int y)
+{
+    if(button==GLUT_LEFT_BUTTON && state==GLUT_DOWN)
+    {
+        if(curve_flag!=1)
+        {
+            curve_flag=1;
+            clkpt[0].x=x;
+            clkpt[0].y=y;
+        }
+
+
+        scsToWcs(clkpt[0].x,clkpt[0].y,wcsClkDn);
+        //cout<<"\nD: "<<x<<" "<<y<<" wcs: "<<wcsClkDn[0]<<" "<<wcsClkDn[1];
+        cout<<"{"<<wcsClkDn[0]<<","<<wcsClkDn[1]<<",0},"<<endl;
+    }
+    else if(button==GLUT_LEFT_BUTTON && state==GLUT_UP)
+    {
+        if (curve_flag==1)
+        {
+            clkpt[1].x=x;
+            clkpt[1].y=y;
+            curve_flag=0;
+        }
+        float wcs[3];
+        scsToWcs(clkpt[1].x,clkpt[1].y,wcsClkUp);
+        //cout<<"\nU: "<<x<<" "<<y<<" wcs: "<<wcsClkUp[0]<<" "<<wcsClkUp[1];
+
+        clikd=!clikd;
+    }
+}
+
+//control points
+long long nCr(int n, int r)
+{
+    if(r > n / 2) r = n - r; // because C(n, r) == C(n, n - r)
+    long long ans = 1;
+    int i;
+
+    for(i = 1; i <= r; i++)
+    {
+        ans *= n - r + i;
+        ans /= i;
+    }
+
+    return ans;
+}
+
+//polynomial interpretation for N points
+void BezierCurve ( double t,  float xy[2])
+{
+    double y=0;
+    double x=0;
+    t=t>1.0?1.0:t;
+    for(int i=0; i<=L; i++)
+    {
+        int ncr=nCr(L,i);
+        double oneMinusTpow=pow(1-t,double(L-i));
+        double tPow=pow(t,double(i));
+        double coef=oneMinusTpow*tPow*ncr;
+        x+=coef*ctrlpoints[i][0];
+        y+=coef*ctrlpoints[i][1];
+
+    }
+    xy[0] = float(x);
+    xy[1] = float(y);
+
+    //return y;
+}
+
 
 static GLfloat v_cube[8][3] =
 {
@@ -1417,6 +1580,255 @@ void park_with_tree()
     }
 
 }
+
+void bottleBezier()
+{
+    int i, j;
+    float x, y, z, r;				//current coordinates
+    float x1, y1, z1, r1;			//next coordinates
+    float theta;
+
+    const float startx = 0, endx = ctrlpoints[L][0];
+    //number of angular slices
+    const float dx = (endx - startx) / nt;	//x step size
+    const float dtheta = 2*PI / ntheta;		//angular step size
+
+    float t=0;
+    float dt=1.0/nt;
+    float xy[2];
+    BezierCurve( t,  xy);
+    x = xy[0];
+    r = xy[1];
+    //rotate about z-axis
+    float p1x,p1y,p1z,p2x,p2y,p2z;
+    for ( i = 0; i < nt; ++i )  			//step through x
+    {
+        theta = 0;
+        t+=dt;
+        BezierCurve( t,  xy);
+        x1 = xy[0];
+        r1 = xy[1];
+
+        //draw the surface composed of quadrilaterals by sweeping theta
+        glBegin( GL_QUAD_STRIP );
+        for ( j = 0; j <= ntheta; ++j )
+        {
+            theta += dtheta;
+            double cosa = cos( theta );
+            double sina = sin ( theta );
+            y = r * cosa;
+            y1 = r1 * cosa;	//current and next y
+            z = r * sina;
+            z1 = r1 * sina;	//current and next z
+
+            //edge from point at x to point at next x
+            glVertex3f (x, y, z);
+
+            if(j>0)
+            {
+                getNormal3p(p1x,p1y,p1z,p2x,p2y,p2z,x, y, z);
+            }
+            else
+            {
+                p1x=x;
+                p1y=y;
+                p1z=z;
+                p2x=x1;
+                p2y=y1;
+                p2z=z1;
+
+            }
+            glVertex3f (x1, y1, z1);
+
+            //forms quad with next pair of points with incremented theta value
+        }
+        glEnd();
+        x = x1;
+        r = r1;
+    } //for i
+
+}
+
+
+
+
+void showControlPoints()
+{
+    glPointSize(5.0);
+    glColor3f(1.0, 0.0, 1.0);
+    glBegin(GL_POINTS);
+    for (int i = 0; i <=L; i++)
+        glVertex3fv(&ctrlpoints[i][0]);
+    glEnd();
+}
+void chair()
+{
+    float seat_length =12, seat_height =1, seat_width  =8;
+
+    float leg_length  = 0.8, leg_height  = 12, leg_width  = 0.8;
+
+    //seat
+    glPushMatrix();
+    glScalef(seat_length,seat_height,seat_width);
+    glTranslatef(-0.5,0,-0.5);
+    cube(0.184, 0.310, 0.310);
+    glPopMatrix();
+
+    //upper-leg(left)
+    glPushMatrix();
+    glTranslatef(-(seat_length/2-leg_length/2),0,-(seat_width/2-leg_width/2));
+    glScalef(leg_length,leg_height,leg_width);
+    glTranslatef(-0.5,0,-0.5);
+    cube(0.45,0.49,0.28);
+    glPopMatrix();
+
+    //upper-leg(right)
+    glPushMatrix();
+    glTranslatef((seat_length/2-leg_length/2),0,-(seat_width/2-leg_width/2));
+    glScalef(leg_length,leg_height,leg_width);
+    glTranslatef(-0.5,0,-0.5);
+    cube(0.45,0.49,0.28);
+    glPopMatrix();
+
+    //lower-leg(left)-Rear
+    glPushMatrix();
+    glTranslatef(-(seat_length/2-leg_length/2),0,-(seat_width/2-leg_width/2));
+    glScalef(leg_length,leg_height,leg_width);
+    glTranslatef(-0.5,-1,-0.5);
+    cube(0.45,0.49,0.28);
+    glPopMatrix();
+
+    //lower-leg(left)-Front
+    glPushMatrix();
+    glTranslatef(-(seat_length/2-leg_length/2),0,(seat_width/2-leg_width/2));
+    glScalef(leg_length,leg_height,leg_width);
+    glTranslatef(-0.5,-1,-0.5);
+    cube(0.45,0.49,0.28);
+    glPopMatrix();
+
+    //lower-leg(right)-Rear
+    glPushMatrix();
+    glTranslatef((seat_length/2-leg_length/2),0,-(seat_width/2-leg_width/2));
+    glScalef(leg_length,leg_height,leg_width);
+    glTranslatef(-0.5,-1,-0.5);
+    cube(0.45,0.49,0.28);
+    glPopMatrix();
+
+    //lower-leg(right)-Front
+    glPushMatrix();
+    glTranslatef((seat_length/2-leg_length/2),0,(seat_width/2-leg_width/2));
+    glScalef(leg_length,leg_height,leg_width);
+    glTranslatef(-0.5,-1,-0.5);
+    cube(0.45,0.49,0.28);
+    glPopMatrix();
+
+    //Rail-upper
+    glPushMatrix();
+    glTranslatef(0,6,-(seat_width/2-leg_width/2));
+    glScalef(seat_length,seat_height,leg_width);
+    glTranslatef(-0.5,-1,-0.5);
+    cube(0.45,0.49,0.28);
+    glPopMatrix();
+
+    //Rail-upper
+    glPushMatrix();
+    glTranslatef(0,8,-(seat_width/2-leg_width/2));
+    glScalef(seat_length,seat_height,leg_width);
+    glTranslatef(-0.5,-1,-0.5);
+    cube(0.45,0.49,0.28);
+    glPopMatrix();
+
+    //Rail-upper
+    glPushMatrix();
+    glTranslatef(0,10,-(seat_width/2-leg_width/2));
+    glScalef(seat_length,seat_height,leg_width);
+    glTranslatef(-0.5,-1,-0.5);
+    cube(0.45,0.49,0.28);
+    glPopMatrix();
+
+    //Rail-upper
+    glPushMatrix();
+    glTranslatef(0,12,-(seat_width/2-leg_width/2));
+    glScalef(seat_length,seat_height,leg_width);
+    glTranslatef(-0.5,-1,-0.5);
+    cube(0.45,0.49,0.28);
+    glPopMatrix();
+
+    //Rail-lower
+    glPushMatrix();
+    glTranslatef(0,-8,-(seat_width/2-leg_width/2));
+    glScalef(seat_length,seat_height,leg_width);
+    glTranslatef(-0.5,-1,-0.5);
+    cube(0.45,0.49,0.28);
+    glPopMatrix();
+
+    //Rail-lower
+    glPushMatrix();
+    glTranslatef(0,-8,(seat_width/2-leg_width/2));
+    glScalef(seat_length,seat_height,leg_width);
+    glTranslatef(-0.5,-1,-0.5);
+    cube(0.45,0.49,0.28);
+    glPopMatrix();
+
+    //Rail-lower
+    glPushMatrix();
+    glTranslatef((seat_length/2-leg_width/2),-8,0);
+    glScalef(leg_width,leg_width,seat_width);
+    glTranslatef(-0.5,-1,-0.5);
+    cube(0.45,0.49,0.28);
+    glPopMatrix();
+
+    //Rail-lower
+    glPushMatrix();
+    glTranslatef(-(seat_length/2-leg_width/2),-8,0);
+    glScalef(leg_width,leg_width,seat_width);
+    glTranslatef(-0.5,-1,-0.5);
+    cube(0.45,0.49,0.28);
+    glPopMatrix();
+
+}
+
+void chair_table()
+{
+    // CURVED CHAIR TABLE PART
+    glPushMatrix();
+    material_property(0.5,0.4,0.3);
+    glRotatef( 90, 0.0, 0.0, 1.0);
+    //glRotatef( 180, 1.0, 0.0, 1.0);
+    glTranslated(-22,0,0);
+    glScalef(3,3,3);
+    bottleBezier();
+    glPopMatrix();
+
+    glPushMatrix();
+    glTranslatef(0,0,-20);
+    chair();
+    glPopMatrix();
+
+    //2nd chair
+    glPushMatrix();
+
+    glTranslatef(0,0,20);
+    glRotatef(180,0,1,0);
+    chair();
+    glPopMatrix();
+
+    //3rd chair
+    glPushMatrix();
+    glTranslatef(-22,0,0);
+    glRotatef(90,0,1,0);
+    chair();
+    glPopMatrix();
+    //4th chair
+    glPushMatrix();
+    glTranslatef(22,0,0);
+    glRotatef(-90,0,1,0);
+    chair();
+    glPopMatrix();
+
+
+}
+
 static void key(unsigned char key, int x, int y)
 {
     switch (key)
@@ -1723,6 +2135,12 @@ static void display(void)
         glPopMatrix();
     }
 
+    // chair table
+    glPushMatrix();
+    glTranslatef(200,10,-10);
+    glScalef(0.5,0.5,0.5);
+    chair_table();
+    glPopMatrix();
 
 
 
@@ -1840,6 +2258,9 @@ int main(int argc, char *argv[])
 
     glutDisplayFunc(display);
     glutKeyboardFunc(key);
+    glutMouseFunc(processMouse);
+
+
 
 
     glShadeModel( GL_SMOOTH );
