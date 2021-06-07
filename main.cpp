@@ -1649,7 +1649,10 @@ void bottleBezier()
 
 }
 
-
+static void idle(void)
+{
+    glutPostRedisplay();
+}
 
 
 void showControlPoints()
@@ -1828,7 +1831,60 @@ void chair_table()
 
 
 }
+void curved_animation()
+{
+    const double t = glutGet(GLUT_ELAPSED_TIME) / 5000.0;
+    const double a = t*90.0;
+    if(wired)
+    {
+        glPolygonMode( GL_FRONT, GL_LINE ) ;
+        glPolygonMode( GL_BACK, GL_LINE ) ;
 
+    }
+    else
+    {
+        glPolygonMode( GL_FRONT,GL_FILL ) ;
+        glPolygonMode( GL_BACK, GL_FILL ) ;
+    }
+
+    glPushMatrix();
+
+    if(animat)
+        glRotated(a,0,0,1);
+
+    glRotatef( anglex, 1.0, 0.0, 0.0);
+    glRotatef( angley, 0.0, 1.0, 0.0);         	//rotate about y-axis
+    glRotatef( anglez, 0.0, 0.0, 1.0);
+
+    glRotatef( 90, 0.0, 0.0, 1.0);
+    glTranslated(-3.5,0,0);
+    glGetDoublev( GL_MODELVIEW_MATRIX, modelview ); //get the modelview info
+
+    //matColor(0,0,0,20);   // front face color
+    //matColor(0.0,0,0,20,1);  // back face color
+    material_property(0,1,0);
+
+
+   /*
+   // chair table -------------- if i call the chair table from here, the chair table will be up down left right
+    glPushMatrix();
+    glTranslatef(200,10,-10);
+    glScalef(0.5,0.5,0.5);
+    chair_table();
+    glPopMatrix();
+*/
+
+    if(shcpt)
+    {
+        //matColor(0.0,0.0,0.9,20);
+        material_property(0,1,0);
+
+        showControlPoints();
+    }
+
+    glPopMatrix();
+
+}
 static void key(unsigned char key, int x, int y)
 {
     switch (key)
@@ -1880,6 +1936,36 @@ static void key(unsigned char key, int x, int y)
     case '-':
         //zoom out
         eyeZ++;
+        break;
+    case 's':
+    case 'S':
+        shcpt=!shcpt;
+        break;
+
+    case 'w':
+    case 'W':
+        wired=!wired;
+        break;
+
+    case 'x':
+        anglex = ( anglex + 3 ) % 360;
+        break;
+    case 'X':
+        anglex = ( anglex - 3 ) % 360;
+        break;
+
+    case 'y':
+        angley = ( angley + 3 ) % 360;
+        break;
+    case 'Y':
+        angley = ( angley - 3 ) % 360;
+        break;
+
+    case 'z':
+        anglez = ( anglez + 3 ) % 360;
+        break;
+    case 'Z':
+        anglez = ( anglez - 3 ) % 360;
         break;
 
     case '1':
@@ -2135,12 +2221,16 @@ static void display(void)
         glPopMatrix();
     }
 
+
     // chair table
     glPushMatrix();
     glTranslatef(200,10,-10);
     glScalef(0.5,0.5,0.5);
     chair_table();
     glPopMatrix();
+
+    // Curved Setting for animation
+    curved_animation();
 
 
 
@@ -2259,6 +2349,7 @@ int main(int argc, char *argv[])
     glutDisplayFunc(display);
     glutKeyboardFunc(key);
     glutMouseFunc(processMouse);
+    glutIdleFunc(idle);
 
 
 
