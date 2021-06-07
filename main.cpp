@@ -547,6 +547,72 @@ void playground()
     glDisable(GL_TEXTURE_2D);
 
 }
+void hotel()
+{
+
+    float length = 50;
+    float width = 1;
+
+    //floor
+    glEnable(GL_TEXTURE_2D);
+    glBindTexture(GL_TEXTURE_2D,27);
+    glPushMatrix();
+    glScalef(length,width,length);
+    glTranslatef(-0.5,-1,-0.5);
+    cube(0.9,0.9,0.9);
+    glPopMatrix();
+    glDisable(GL_TEXTURE_2D);
+
+    //left
+    glEnable(GL_TEXTURE_2D);
+    glBindTexture(GL_TEXTURE_2D,28);
+    glPushMatrix();
+    glTranslatef(length/2,0,0);
+    glScalef(width,length,length);
+    glTranslatef(0,0,-0.5);
+    cube(0.3,0.7,0.7);
+    glPopMatrix();
+    glDisable(GL_TEXTURE_2D);
+
+
+    // right
+    glEnable(GL_TEXTURE_2D);
+    glBindTexture(GL_TEXTURE_2D,28);
+    glPushMatrix();
+    glTranslatef(-length/2,0,0);
+    glScalef(width,length,length);
+    glTranslatef(0,0,-0.5);
+    cube(0.3,0.7,0.7);
+    glPopMatrix();
+    glDisable(GL_TEXTURE_2D);
+
+    // Up
+     glEnable(GL_TEXTURE_2D);
+    glBindTexture(GL_TEXTURE_2D,28);
+    glPushMatrix();
+    glTranslatef(0,length,0);
+    glScalef(length,width,length);
+    glTranslatef(-0.5,0,-0.5);
+    cube(1.0,1.0,1.0);
+    glPopMatrix();
+    glDisable(GL_TEXTURE_2D);
+
+    // Front
+    glEnable(GL_TEXTURE_2D);
+    glBindTexture(GL_TEXTURE_2D,28);
+    glPushMatrix();
+    glTranslatef(0,0,-length/2);
+    glScalef(length,length,width);
+    glTranslatef(-0.5,0,0);
+    cube(0,1.0,0);
+    glPopMatrix();
+    glDisable(GL_TEXTURE_2D);
+
+
+
+
+
+}
 
 void road()
 {
@@ -655,6 +721,29 @@ void wood_leaf()
 
 }
 
+void trees_beside_building()
+{
+
+    for (int i=10; i<=100; i+=20)
+    {
+        glPushMatrix();
+        glTranslatef(0,-20,-i);
+        wood_leaf();
+        glPopMatrix();
+
+    }
+
+    // Tree 2
+
+    for (int i=10; i<=100; i+=20)
+    {
+        glPushMatrix();
+        glTranslatef(45,-20,-i);
+        wood_leaf();
+        glPopMatrix();
+
+    }
+}
 void traffic_signal()
 {
     // base
@@ -1181,21 +1270,27 @@ void bus_front()
 }
 void bus_left_side()
 {
+    glEnable(GL_TEXTURE_2D);
+    glBindTexture(GL_TEXTURE_2D,26);
     glPushMatrix();
     glTranslatef(-1,10,-40);
     glScalef(1,15,40);
-    cube(0.0,1.0,0);
+    cube(0.5,0.5,0.5);
     glPopMatrix();
+    glDisable(GL_TEXTURE_2D);
 
 }
 
 void bus_right_side()
 {
+    glEnable(GL_TEXTURE_2D);
+    glBindTexture(GL_TEXTURE_2D,26);
     glPushMatrix();
     glTranslatef(20,10,-40);
     glScalef(1,15,40);
-    cube(0.0,1.0,0);
+    cube(0.5,0.5,0.5);
     glPopMatrix();
+    glDisable(GL_TEXTURE_2D);
 
 }
 void bus_back_side()
@@ -1247,11 +1342,14 @@ void bus()
 {
     glPushMatrix();
     // Body of Bus
+    glEnable(GL_TEXTURE_2D);
+    glBindTexture(GL_TEXTURE_2D,16);
     glPushMatrix();
     glTranslatef(0,10,-40);
     glScalef(20,20,40);
-    cube(1.0,0,0);
+    cube(1.0,1.0,1.0);
     glPopMatrix();
+    glDisable(GL_TEXTURE_2D);
 
     //FRONT
 
@@ -2046,11 +2144,15 @@ static void display(void)
 
     glPopMatrix();
 
-    // More Buildings
+    // more floor
     glPushMatrix();
-    glTranslatef(350,0,0);
+    glTranslatef(200,0,0);
     base_floor();
-    buiding();
+    glPopMatrix();
+    // Hotel
+    glPushMatrix();
+    glTranslatef(400,10,-20);
+    hotel();
     glPopMatrix();
 
     // Sign board 1
@@ -2133,27 +2235,9 @@ static void display(void)
     glPopMatrix();
     //trees();
 
-    // Tree 1
+    // Tree inside building
+    trees_beside_building();
 
-    for (int i=10; i<=100; i+=20)
-    {
-        glPushMatrix();
-        glTranslatef(0,-20,-i);
-        wood_leaf();
-        glPopMatrix();
-
-    }
-
-    // Tree 2
-
-    for (int i=10; i<=100; i+=20)
-    {
-        glPushMatrix();
-        glTranslatef(45,-20,-i);
-        wood_leaf();
-        glPopMatrix();
-
-    }
 
     //wood_leaf();
 
@@ -2291,6 +2375,15 @@ void texture_function()
     LoadTexture("C:\\Users\\Shimul\\Documents\\CSE 4208 Computer Graphics\\City 3D\\images\\watch1.bmp",23);
     // Walls
     LoadTexture("C:\\Users\\Shimul\\Documents\\CSE 4208 Computer Graphics\\City 3D\\images\\floor3.bmp",24);
+    // Football playground
+    LoadTexture("C:\\Users\\Shimul\\Documents\\CSE 4208 Computer Graphics\\City 3D\\images\\football1.bmp",25);
+    // BUS Texture
+    LoadTexture("C:\\Users\\Shimul\\Documents\\CSE 4208 Computer Graphics\\City 3D\\images\\bus10.bmp",26);
+
+    // Hotel Bricks
+    LoadTexture("C:\\Users\\Shimul\\Documents\\CSE 4208 Computer Graphics\\City 3D\\images\\brick1.bmp",27);
+    //stone
+    LoadTexture("C:\\Users\\Shimul\\Documents\\CSE 4208 Computer Graphics\\City 3D\\images\\stone1.bmp",28);
 }
 int main(int argc, char *argv[])
 {
@@ -2334,6 +2427,10 @@ int main(int argc, char *argv[])
 
     cout<<"\t Press : + -> Zoom In"<<endl;
     cout<<"\t Press : - -> Zoom Out"<<endl;
+
+    cout<<"---------------------------------------------------------------"<<endl;
+
+    cout<<"\t Press : w -> Curve Wired Line ON/OFF"<<endl;
 
     cout<<"\t Press : 1 -> ON/OFF Light 1"<<endl;
     cout<<"\t Press : 2 -> ON/OFF Light 2"<<endl;
