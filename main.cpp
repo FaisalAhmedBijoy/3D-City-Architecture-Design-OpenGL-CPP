@@ -570,7 +570,7 @@ void hotel()
     glTranslatef(length/2,0,0);
     glScalef(width,length,length);
     glTranslatef(0,0,-0.5);
-    cube(0.3,0.7,0.7);
+    cube(0.5,0.5,0.5);
     glPopMatrix();
     glDisable(GL_TEXTURE_2D);
 
@@ -582,7 +582,7 @@ void hotel()
     glTranslatef(-length/2,0,0);
     glScalef(width,length,length);
     glTranslatef(0,0,-0.5);
-    cube(0.3,0.7,0.7);
+    cube(0.5,0.5,0.5);
     glPopMatrix();
     glDisable(GL_TEXTURE_2D);
 
@@ -593,7 +593,7 @@ void hotel()
     glTranslatef(0,length,0);
     glScalef(length,width,length);
     glTranslatef(-0.5,0,-0.5);
-    cube(1.0,1.0,1.0);
+    cube(0.5,0.5,0.5);
     glPopMatrix();
     glDisable(GL_TEXTURE_2D);
 
@@ -604,7 +604,7 @@ void hotel()
     glTranslatef(0,0,-length/2);
     glScalef(length,length,width);
     glTranslatef(-0.5,0,0);
-    cube(0,1.0,0);
+    cube(1.0,1.0,1.0);
     glPopMatrix();
     glDisable(GL_TEXTURE_2D);
 
@@ -634,7 +634,7 @@ void road()
     glBindTexture(GL_TEXTURE_2D,10);
 
     glPushMatrix();
-    glTranslatef(-50,0.5,0);
+    glTranslatef(-50,0.8,0);
     glRotatef(90,0,1,0);
     glScalef(300,1,20);
     glTranslatef(-0.5,-0.5,-0.5);
@@ -648,7 +648,7 @@ void road()
     glBindTexture(GL_TEXTURE_2D,10);
 
     glPushMatrix();
-    glTranslatef(135,0.5,0);
+    glTranslatef(135,0.8,0);
     glRotatef(90,0,1,0);
     glScalef(300,1,20);
     glTranslatef(-0.5,-0.5,-0.5);
@@ -1163,45 +1163,112 @@ void axes()
 }
 
 
-
-void cars()
+void car_wheels()
 {
-
-    //base
-    glEnable(GL_TEXTURE_2D);
-    glBindTexture(GL_TEXTURE_2D,16);
-
-    glPushMatrix();
-    glTranslatef(0,15,20);
-    glScalef(20,15,5);
-    glTranslatef(-0.5,-0.5,-0.5);
-    cube(0.8,0.8,0.0);
-    glPopMatrix();
-    glDisable(GL_TEXTURE_2D);
-
-    // wheel 1
+     // wheel 1
     glPushMatrix();
     glTranslatef(-5,5,18);
-    glutSolidSphere(2,16,16);
+    glutSolidTorus(1,2,16,16);
     glPopMatrix();
 
     // wheel 2
     glPushMatrix();
     glTranslatef(5,5,18);
-    glutSolidSphere(2,16,16);
+    glutSolidTorus(1,2,16,16);
+    //glutSolidSphere(2,16,16);
     glPopMatrix();
 
     // wheel 3
     glPushMatrix();
     glTranslatef(5,5,22);
-    glutSolidSphere(2,16,16);
+    glutSolidTorus(1,2,16,16);
+    //glutSolidSphere(2,16,16);
     glPopMatrix();
 
     // wheel 4
     glPushMatrix();
     glTranslatef(-5,5,22);
-    glutSolidSphere(2,10,10);
+    glutSolidTorus(1,2,16,16);
+    //glutSolidSphere(2,10,10);
     glPopMatrix();
+}
+void cars()
+{
+
+    //base
+    //glEnable(GL_TEXTURE_2D);
+    //glBindTexture(GL_TEXTURE_2D,16);
+
+    glPushMatrix();
+    glTranslatef(0,15,20);
+    glScalef(20,15,5);
+    glTranslatef(-0.5,-0.5,-0.5);
+    cube(1.0,1.0,0.0);
+    glPopMatrix();
+    //glDisable(GL_TEXTURE_2D);
+
+    // Car front view
+    glEnable(GL_TEXTURE_2D);
+    glBindTexture(GL_TEXTURE_2D,29);
+    glPushMatrix();
+    glTranslatef(10,15,20);
+    glScalef(1,15,6);
+    glTranslatef(-0.5,-0.5,-0.5);
+    cube(0.5,0.5,0.0);
+    glPopMatrix();
+    glDisable(GL_TEXTURE_2D);
+
+    // Front Lights 1
+    material_property(0.5,0.5,0.5);
+    glPushMatrix();
+    glTranslatef(11,12,22);
+    glTranslatef(-0.5,-0.5,-0.5);
+    glRotatef(90,0,1,0);
+    glutSolidTorus(0.2,.5,16,16);
+    glPopMatrix();
+
+    // Front Lights 2
+    material_property(0.5,0.5,0.5);
+    glPushMatrix();
+    glTranslatef(11,12,18);
+    glTranslatef(-0.5,-0.5,-0.5);
+    glRotatef(90,0,1,0);
+    glutSolidTorus(0.2,.5,16,16);
+    glPopMatrix();
+
+
+    // upper base car
+    glPushMatrix();
+    glTranslatef(0,23,20);
+    glScalef(20,1,8);
+    glTranslatef(-0.5,-0.5,-0.5);
+    cube(1.0,1.0,0.0);
+    glPopMatrix();
+
+
+    // Left side car
+    glEnable(GL_TEXTURE_2D);
+    glBindTexture(GL_TEXTURE_2D,26);
+     glPushMatrix();
+    glTranslatef(0,15,23);
+    glScalef(20,15,0.2);
+    glTranslatef(-0.5,-0.5,-0.5);
+    cube(1.0,1.0,1.0);
+    glPopMatrix();
+    glDisable(GL_TEXTURE_2D);
+
+    // right side car
+    glEnable(GL_TEXTURE_2D);
+    glBindTexture(GL_TEXTURE_2D,26);
+     glPushMatrix();
+    glTranslatef(0,15,17);
+    glScalef(20,15,0.2);
+    glTranslatef(-0.5,-0.5,-0.5);
+    cube(1.0,1.0,1.0);
+    glPopMatrix();
+    glDisable(GL_TEXTURE_2D);
+
+   car_wheels();
 
 
 
@@ -1402,7 +1469,7 @@ void bus_animation()
 }
 void bus_move()
 {
-    for(int i=1; i<=100; i+=50)
+    for(int i=1; i<=150; i+=70)
     {
         glPushMatrix();
         glTranslatef(0,0,busz+i);
@@ -1679,7 +1746,7 @@ void park_with_tree()
 
 }
 
-void bottleBezier()
+void tableBezier()
 {
     int i, j;
     float x, y, z, r;				//current coordinates
@@ -1764,130 +1831,88 @@ void showControlPoints()
 }
 void chair()
 {
-    float seat_length =12, seat_height =1, seat_width  =8;
 
-    float leg_length  = 0.8, leg_height  = 12, leg_width  = 0.8;
+    float length=20;
+    float width=1;
 
-    //seat
+    //base seat
     glPushMatrix();
-    glScalef(seat_length,seat_height,seat_width);
-    glTranslatef(-0.5,0,-0.5);
-    cube(0.184, 0.310, 0.310);
+    glTranslatef(0,length/2,0);
+    glScalef(length,width,length);
+    glTranslatef(-0.5,-0.5,-0.5);
+    cube();
     glPopMatrix();
 
-    //upper-leg(left)
+    // leg base 1
     glPushMatrix();
-    glTranslatef(-(seat_length/2-leg_length/2),0,-(seat_width/2-leg_width/2));
-    glScalef(leg_length,leg_height,leg_width);
-    glTranslatef(-0.5,0,-0.5);
-    cube(0.45,0.49,0.28);
+    glTranslatef(length/2 -width/2,0,length/2-width/2);
+    glScalef(width,length,width);
+    glTranslatef(-0.5,-0.5,-0.5);
+    cube(1,0,0);
+    glPopMatrix();
+    // leg base 2
+    glPushMatrix();
+    glTranslatef(length/2 -width/2,0,- length/2 +width/2);
+    glScalef(width,length,width);
+    glTranslatef(-0.5,-0.5,-0.5);
+    cube(1,0,0);
+    glPopMatrix();
+    // leg base 3
+    glPushMatrix();
+    glTranslatef(-length/2 +width/2,0,+ length/2 -width/2);
+    glScalef(width,length,width);
+    glTranslatef(-0.5,-0.5,-0.5);
+    cube(1,0,0);
+    glPopMatrix();
+    // leg  base 4
+    glPushMatrix();
+    glTranslatef(-length/2 +width/2,0,- length/2 +width/2);
+    glScalef(width,length,width);
+    glTranslatef(-0.5,-0.5,-0.5);
+    cube(1,0,0);
     glPopMatrix();
 
-    //upper-leg(right)
+    // upper  1
     glPushMatrix();
-    glTranslatef((seat_length/2-leg_length/2),0,-(seat_width/2-leg_width/2));
-    glScalef(leg_length,leg_height,leg_width);
-    glTranslatef(-0.5,0,-0.5);
-    cube(0.45,0.49,0.28);
+    glTranslatef(length/2 -width/2,length,length/2-width/2);
+    glScalef(width,length,width);
+    glTranslatef(-0.5,-0.5,-0.5);
+    cube(0,1,0);
+    glPopMatrix();
+    // upper 2
+    glPushMatrix();
+    glTranslatef(-length/2 -width/2,length,length/2+width/2);
+    glScalef(width,length,width);
+    glTranslatef(-0.5,-0.5,-0.5);
+    cube(0,1,0);
     glPopMatrix();
 
-    //lower-leg(left)-Rear
+    // upper close 1
     glPushMatrix();
-    glTranslatef(-(seat_length/2-leg_length/2),0,-(seat_width/2-leg_width/2));
-    glScalef(leg_length,leg_height,leg_width);
-    glTranslatef(-0.5,-1,-0.5);
-    cube(0.45,0.49,0.28);
+    glTranslatef(0,length,length/2);
+    glScalef(length,length/6,0);
+    glTranslatef(-0.5,-0.5,-0.5);
+    cube(0,0,1);
+    glPopMatrix();
+    // upper close 2
+    glPushMatrix();
+    glTranslatef(0,length+5,length/2);
+    glScalef(length,length/6,0);
+    glTranslatef(-0.5,-0.5,-0.5);
+    cube(1,0,1);
     glPopMatrix();
 
-    //lower-leg(left)-Front
+    // upper close 3
     glPushMatrix();
-    glTranslatef(-(seat_length/2-leg_length/2),0,(seat_width/2-leg_width/2));
-    glScalef(leg_length,leg_height,leg_width);
-    glTranslatef(-0.5,-1,-0.5);
-    cube(0.45,0.49,0.28);
+    glTranslatef(0,length-5,length/2);
+    glScalef(length,length/6,0);
+    glTranslatef(-0.5,-0.5,-0.5);
+    cube(1,0,1);
     glPopMatrix();
 
-    //lower-leg(right)-Rear
-    glPushMatrix();
-    glTranslatef((seat_length/2-leg_length/2),0,-(seat_width/2-leg_width/2));
-    glScalef(leg_length,leg_height,leg_width);
-    glTranslatef(-0.5,-1,-0.5);
-    cube(0.45,0.49,0.28);
-    glPopMatrix();
-
-    //lower-leg(right)-Front
-    glPushMatrix();
-    glTranslatef((seat_length/2-leg_length/2),0,(seat_width/2-leg_width/2));
-    glScalef(leg_length,leg_height,leg_width);
-    glTranslatef(-0.5,-1,-0.5);
-    cube(0.45,0.49,0.28);
-    glPopMatrix();
-
-    //Rail-upper
-    glPushMatrix();
-    glTranslatef(0,6,-(seat_width/2-leg_width/2));
-    glScalef(seat_length,seat_height,leg_width);
-    glTranslatef(-0.5,-1,-0.5);
-    cube(0.45,0.49,0.28);
-    glPopMatrix();
-
-    //Rail-upper
-    glPushMatrix();
-    glTranslatef(0,8,-(seat_width/2-leg_width/2));
-    glScalef(seat_length,seat_height,leg_width);
-    glTranslatef(-0.5,-1,-0.5);
-    cube(0.45,0.49,0.28);
-    glPopMatrix();
-
-    //Rail-upper
-    glPushMatrix();
-    glTranslatef(0,10,-(seat_width/2-leg_width/2));
-    glScalef(seat_length,seat_height,leg_width);
-    glTranslatef(-0.5,-1,-0.5);
-    cube(0.45,0.49,0.28);
-    glPopMatrix();
-
-    //Rail-upper
-    glPushMatrix();
-    glTranslatef(0,12,-(seat_width/2-leg_width/2));
-    glScalef(seat_length,seat_height,leg_width);
-    glTranslatef(-0.5,-1,-0.5);
-    cube(0.45,0.49,0.28);
-    glPopMatrix();
-
-    //Rail-lower
-    glPushMatrix();
-    glTranslatef(0,-8,-(seat_width/2-leg_width/2));
-    glScalef(seat_length,seat_height,leg_width);
-    glTranslatef(-0.5,-1,-0.5);
-    cube(0.45,0.49,0.28);
-    glPopMatrix();
-
-    //Rail-lower
-    glPushMatrix();
-    glTranslatef(0,-8,(seat_width/2-leg_width/2));
-    glScalef(seat_length,seat_height,leg_width);
-    glTranslatef(-0.5,-1,-0.5);
-    cube(0.45,0.49,0.28);
-    glPopMatrix();
-
-    //Rail-lower
-    glPushMatrix();
-    glTranslatef((seat_length/2-leg_width/2),-8,0);
-    glScalef(leg_width,leg_width,seat_width);
-    glTranslatef(-0.5,-1,-0.5);
-    cube(0.45,0.49,0.28);
-    glPopMatrix();
-
-    //Rail-lower
-    glPushMatrix();
-    glTranslatef(-(seat_length/2-leg_width/2),-8,0);
-    glScalef(leg_width,leg_width,seat_width);
-    glTranslatef(-0.5,-1,-0.5);
-    cube(0.45,0.49,0.28);
-    glPopMatrix();
 
 }
+
 
 void chair_table()
 {
@@ -1898,32 +1923,38 @@ void chair_table()
     //glRotatef( 180, 1.0, 0.0, 1.0);
     glTranslated(-22,0,0);
     glScalef(3,3,3);
-    bottleBezier();
+    tableBezier();
     glPopMatrix();
 
+     // 1st chair
     glPushMatrix();
-    glTranslatef(0,0,-20);
+    glTranslatef(0,-5,-20);
+    glRotatef(180,0,1,0);
+    glScalef(0.5,0.5,0.5);
     chair();
     glPopMatrix();
 
     //2nd chair
     glPushMatrix();
 
-    glTranslatef(0,0,20);
-    glRotatef(180,0,1,0);
+    glTranslatef(0,-5,20);
+    //glRotatef(180,0,1,0);
+    glScalef(0.5,0.5,0.5);
     chair();
     glPopMatrix();
 
     //3rd chair
     glPushMatrix();
-    glTranslatef(-22,0,0);
-    glRotatef(90,0,1,0);
+    glTranslatef(-22,-5,0);
+    glRotatef(-90,0,1,0);
+    glScalef(0.5,0.5,0.5);
     chair();
     glPopMatrix();
     //4th chair
     glPushMatrix();
-    glTranslatef(22,0,0);
-    glRotatef(-90,0,1,0);
+    glTranslatef(22,-5,0);
+    glRotatef(90,0,1,0);
+    glScalef(0.5,0.5,0.5);
     chair();
     glPopMatrix();
 
@@ -2149,9 +2180,14 @@ static void display(void)
     glTranslatef(200,0,0);
     base_floor();
     glPopMatrix();
-    // Hotel
+    // Hotel 1
     glPushMatrix();
     glTranslatef(400,10,-20);
+    hotel();
+    glPopMatrix();
+    // hotel 2
+    glPushMatrix();
+    glTranslatef(400,60,-20);
     hotel();
     glPopMatrix();
 
@@ -2384,6 +2420,8 @@ void texture_function()
     LoadTexture("C:\\Users\\Shimul\\Documents\\CSE 4208 Computer Graphics\\City 3D\\images\\brick1.bmp",27);
     //stone
     LoadTexture("C:\\Users\\Shimul\\Documents\\CSE 4208 Computer Graphics\\City 3D\\images\\stone1.bmp",28);
+    // KUET BUS
+    LoadTexture("C:\\Users\\Shimul\\Documents\\CSE 4208 Computer Graphics\\City 3D\\images\\kuet3.bmp",29);
 }
 int main(int argc, char *argv[])
 {
@@ -2392,7 +2430,7 @@ int main(int argc, char *argv[])
     glutInitWindowSize(window_width,window_height);
     glutInitWindowPosition(300,10);
     glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB | GLUT_DEPTH);
-    glutCreateWindow("3D City Architecture Design");
+    glutCreateWindow("3D City Architecture Design: 1607048");
 
     texture_function();
 
@@ -2409,6 +2447,7 @@ int main(int argc, char *argv[])
     cout<<"1. Buildings \t\t 2. Roads \t\t 3. Traffic lights \t 4. Road lights \t "<<endl;
     cout<<"5. Tress \t\t 6. Park \t\t 7. Cars \t\t 8. Playgrounds "<<endl;
     cout<<"9. Swimming Pool \t 10. Shopping Malls  \t 11. Signboard \t\t 12. Sun/Moon "<<endl;
+    cout<<"13. Bus \t\t 14. Hotel \t\t 15. Traffic system \t 16. Clock "<<endl;
     cout<<"-------------------------------------------------------------------------------------------"<<endl;
 
 
