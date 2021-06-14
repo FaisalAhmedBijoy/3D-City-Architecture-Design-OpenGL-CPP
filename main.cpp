@@ -547,13 +547,12 @@ void playground()
     glDisable(GL_TEXTURE_2D);
 
 }
-void hotel()
+void hotel_walls()
 {
-
     float length = 50;
     float width = 1;
 
-    //floor
+    // wall floor
     glEnable(GL_TEXTURE_2D);
     glBindTexture(GL_TEXTURE_2D,27);
     glPushMatrix();
@@ -563,7 +562,7 @@ void hotel()
     glPopMatrix();
     glDisable(GL_TEXTURE_2D);
 
-    //left
+    //wall left
     glEnable(GL_TEXTURE_2D);
     glBindTexture(GL_TEXTURE_2D,28);
     glPushMatrix();
@@ -575,7 +574,7 @@ void hotel()
     glDisable(GL_TEXTURE_2D);
 
 
-    // right
+    //wall right
     glEnable(GL_TEXTURE_2D);
     glBindTexture(GL_TEXTURE_2D,28);
     glPushMatrix();
@@ -586,7 +585,7 @@ void hotel()
     glPopMatrix();
     glDisable(GL_TEXTURE_2D);
 
-    // Up
+    // wall Up
      glEnable(GL_TEXTURE_2D);
     glBindTexture(GL_TEXTURE_2D,28);
     glPushMatrix();
@@ -597,7 +596,7 @@ void hotel()
     glPopMatrix();
     glDisable(GL_TEXTURE_2D);
 
-    // Front
+    // back side
     glEnable(GL_TEXTURE_2D);
     glBindTexture(GL_TEXTURE_2D,28);
     glPushMatrix();
@@ -609,8 +608,47 @@ void hotel()
     glDisable(GL_TEXTURE_2D);
 
 
+    // front side wall
+    glEnable(GL_TEXTURE_2D);
+    glBindTexture(GL_TEXTURE_2D,27);
+    glPushMatrix();
+    glTranslatef(9,0,length/2);
+    glScalef(length*.65,length,width);
+    glTranslatef(-0.5,0,0);
+    cube(1.0,1.0,1.0);
+    glPopMatrix();
+    glDisable(GL_TEXTURE_2D);
 
 
+}
+void hotel()
+{
+
+
+
+    // hotel  walls
+    hotel_walls();
+
+    // hotel gate
+    glEnable(GL_TEXTURE_2D);
+    glBindTexture(GL_TEXTURE_2D,30);
+    glPushMatrix();
+    glTranslatef(-23,0,24);
+    glScalef(17,40,1);
+    cube(0.5,0.5,0.5);
+    glPopMatrix();
+    glDisable(GL_TEXTURE_2D);
+
+    // space for gate top
+
+    glEnable(GL_TEXTURE_2D);
+    glBindTexture(GL_TEXTURE_2D,16);
+    glPushMatrix();
+    glTranslatef(-23,40,24);
+    glScalef(17,10,1);
+    cube(1.0,0.5,1.0);
+    glPopMatrix();
+    glDisable(GL_TEXTURE_2D);
 
 }
 
@@ -2186,10 +2224,10 @@ static void display(void)
     hotel();
     glPopMatrix();
     // hotel 2
-    glPushMatrix();
-    glTranslatef(400,60,-20);
-    hotel();
-    glPopMatrix();
+    //glPushMatrix();
+    //glTranslatef(400,60,-20);
+    //hotel();
+    //glPopMatrix();
 
     // Sign board 1
     glPushMatrix();
@@ -2422,6 +2460,9 @@ void texture_function()
     LoadTexture("C:\\Users\\Shimul\\Documents\\CSE 4208 Computer Graphics\\City 3D\\images\\stone1.bmp",28);
     // KUET BUS
     LoadTexture("C:\\Users\\Shimul\\Documents\\CSE 4208 Computer Graphics\\City 3D\\images\\kuet3.bmp",29);
+
+     // hotel Door
+    LoadTexture("C:\\Users\\Shimul\\Documents\\CSE 4208 Computer Graphics\\City 3D\\images\\door3.bmp",30);
 }
 int main(int argc, char *argv[])
 {
