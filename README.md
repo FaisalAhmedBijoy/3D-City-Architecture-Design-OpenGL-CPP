@@ -11,6 +11,7 @@
 - Roads
 - Traffic Lights
 - Road Lights
+- Traffic System
 - Tress
 - Park
 - Cars
@@ -19,8 +20,17 @@
 - Swimming Pool
 - Shopping Malls
 - Signboard
-- Sun
-- Moon
+- Sun / Moon
+- Hotel
+- Clock
+
+<h1>Contents of the project</h1>
+- 2D and 3D Transformation
+- Modeling Transformation
+- 3D View Lighting and Projection
+- Material Property
+- Texture Mapping
+- Curved Surface (Beizer)
 
 <h1>Snapshot of 3D City</h1>
 
