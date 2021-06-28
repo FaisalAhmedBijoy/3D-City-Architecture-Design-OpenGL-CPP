@@ -37,3 +37,18 @@
 
 ![alt text](https://github.com/FaisalAhmedBijoy/3D-City-Architecture-Design-OpenGL-CPP/blob/main/imageReadMe/3d%20city.PNG)
 
+<h1>Different Snapshot of 3D City</h1>
+
+<h3>Main View</h3>
+
+![alt text](https://github.com/FaisalAhmedBijoy/3D-City-Architecture-Design-OpenGL-CPP/blob/main/imageReadMe/Screenshot%20(340).png)
+
+<h3>View From Left to Right</h3>
+
+![alt text](https://github.com/FaisalAhmedBijoy/3D-City-Architecture-Design-OpenGL-CPP/blob/main/imageReadMe/Screenshot%20(342).png)
+
+![alt text](https://github.com/FaisalAhmedBijoy/3D-City-Architecture-Design-OpenGL-CPP/blob/main/imageReadMe/Screenshot%20(343).png)
+
+![alt text](https://github.com/FaisalAhmedBijoy/3D-City-Architecture-Design-OpenGL-CPP/blob/main/imageReadMe/Screenshot%20(344).png)
+
+![alt text](https://github.com/FaisalAhmedBijoy/3D-City-Architecture-Design-OpenGL-CPP/blob/main/imageReadMe/Screenshot%20(345).png)
