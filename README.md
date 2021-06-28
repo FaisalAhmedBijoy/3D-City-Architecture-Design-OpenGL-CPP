@@ -55,3 +55,11 @@
 ![alt text](https://github.com/FaisalAhmedBijoy/3D-City-Architecture-Design-OpenGL-CPP/blob/main/imageReadMe/Screenshot%20(344).png)
 
 ![alt text](https://github.com/FaisalAhmedBijoy/3D-City-Architecture-Design-OpenGL-CPP/blob/main/imageReadMe/Screenshot%20(345).png)
+
+<h3>Wired Version View </h3>
+
+![alt text](https://github.com/FaisalAhmedBijoy/3D-City-Architecture-Design-OpenGL-CPP/blob/main/imageReadMe/Screenshot%20(346).png)
+
+![alt text](https://github.com/FaisalAhmedBijoy/3D-City-Architecture-Design-OpenGL-CPP/blob/main/imageReadMe/Screenshot%20(347).png)
+
+![alt text](https://github.com/FaisalAhmedBijoy/3D-City-Architecture-Design-OpenGL-CPP/blob/main/imageReadMe/Screenshot%20(348).png)
