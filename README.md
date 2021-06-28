@@ -1,6 +1,9 @@
 # 3D-City-Architecture-Design-OpenGL-CPP
-3D Computer Graphics System Design
-<h2>Project: 3D City Architecture Design</h2>
+<h1>Computer Graphics System Design</h1>
+
+<h2>Project Name: 3D City Architecture Design</h2>
+<h2>My Tutorial Youtube Link: https://youtu.be/93c_Z_omBnk</h2>
+
 <h3>Instruction Window </h3>
 
 ![alt text](https://github.com/FaisalAhmedBijoy/3D-City-Architecture-Design-OpenGL-CPP/blob/main/imageReadMe/3d%20city%20instruction.PNG)
