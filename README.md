@@ -2,7 +2,7 @@
 <h1>Computer Graphics System Design</h1>
 
 <h2>Project Name: 3D City Architecture Design</h2>
-<h2>My Tutorial Youtube Link: https://youtu.be/93c_Z_omBnk</h2>
+<h2>My demo on Youtube link: https://youtu.be/93c_Z_omBnk</h2>
 
 <h3>Instruction Window </h3>
 
